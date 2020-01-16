@@ -1,0 +1,19 @@
+{
+  "name": "lumberjacks",
+  "version": "1.0.0",
+  "description": "A link shortener application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs188-software-design-security-w20/project-lumberjacks.git"
+  },
+  "author": "michaelnyu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cs188-software-design-security-w20/project-lumberjacks/issues"
+  },
+  "homepage": "https://github.com/cs188-software-design-security-w20/project-lumberjacks#readme"
+}
