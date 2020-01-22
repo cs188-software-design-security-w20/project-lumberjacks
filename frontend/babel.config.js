@@ -14,9 +14,9 @@ const createConfig = api => {
       ],
     ],
     plugins: [
-      '@babel/syntax-dynamic-import',
       '@babel/plugin-transform-react-display-name',
       '@babel/plugin-syntax-jsx',
+      '@babel/plugin-transform-react-jsx',
     ],
   };
 };
