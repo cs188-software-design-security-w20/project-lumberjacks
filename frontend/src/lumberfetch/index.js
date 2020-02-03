@@ -108,8 +108,8 @@ class FetchWithMiddleware {
     this.middlewares = middlewares;
   }
 
-  applyMiddleAndAfterwares() {
-    return async () => {
+  applyMiddlewares() {
+    this.fetch = (() => {
       const middlewares = [...this.middlewares];
 
       // chain the middlewares to our given "fetch"
@@ -119,7 +119,7 @@ class FetchWithMiddleware {
       }
 
       return fetchWithMiddleware;
-    };
+    })();
   }
 }
 
@@ -137,6 +137,8 @@ class LumberFetch {
 }
 
 const fetchWithMiddleware = new FetchWithMiddleware(FetchWithHandling);
+fetchWithMiddleware.registerMiddlewares([]);
+fetchWithMiddleware.applyMiddlewares();
 const lumberFetch = new LumberFetch(fetchWithMiddleware);
 
 export default lumberFetch;
