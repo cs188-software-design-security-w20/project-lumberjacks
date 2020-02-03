@@ -18,5 +18,5 @@ yarn dev
 ### Build (Prod) Instructions
 
 ```bash
-yarn buil
+yarn build
 ```
