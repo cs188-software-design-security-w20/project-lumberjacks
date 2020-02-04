@@ -1,4 +1,5 @@
 import React from 'react';
+import GalleryItem from './GalleryItem';
 
 class GalleryList extends React.Component {
   constructor(props) {
@@ -12,9 +13,11 @@ class GalleryList extends React.Component {
       <div>
         <h1>Gallery List</h1>
         <div>
-          <h2>[gallery items go here!]</h2>
+          <GalleryItem />
         </div>
       </div>
     );
   }
 }
+
+export default GalleryList;
