@@ -6,10 +6,14 @@ class GalleryList extends React.Component {
     this.state = {};
   }
 
+  // need to link GalleryItem components
   render() {
     return (
       <div>
         <h1>Gallery List</h1>
+        <div>
+          <h2>[gallery items go here!]</h2>
+        </div>
       </div>
     );
   }
