@@ -1,5 +1,7 @@
 import React from 'react';
 
+// need to add logic to pull from data -> update content
+
 class GalleryItem extends React.Component {
   constructor(props) {
     super(props);
@@ -7,7 +9,7 @@ class GalleryItem extends React.Component {
   }
 
   render() {
-    <div>(content of GalleryItem goes in here)</div>;
+    return <div>Gallery Item</div>;
   }
 }
 

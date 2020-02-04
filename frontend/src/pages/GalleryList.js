@@ -1,13 +1,14 @@
 import React from 'react';
 import GalleryItem from './GalleryItem';
 
+// need to add logic to pull from data -> update GalleryItems
+
 class GalleryList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  // need to link GalleryItem components
   render() {
     return (
       <div>
