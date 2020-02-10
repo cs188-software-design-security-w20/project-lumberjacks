@@ -1,5 +1,5 @@
 import React from 'react';
-import GalleryList from './GalleryList';
+import GalleryList from '../components/GalleryList';
 import Login from './Login';
 
 const Home = () => (

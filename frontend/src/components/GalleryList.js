@@ -14,7 +14,7 @@ class GalleryList extends React.Component {
       <div>
         <h1>Gallery List</h1>
         <div>
-          <GalleryItem />
+          <GalleryItem id="0" />
         </div>
       </div>
     );
