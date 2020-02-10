@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from './Icon';
+import { StyledGalleryItem } from './styles';
 
 class GalleryItem extends React.Component {
   constructor(props) {
@@ -13,10 +14,10 @@ class GalleryItem extends React.Component {
   render() {
     const { id, shortcut, urls, createdAt, display } = this.props;
     return (
-      <>
-        <div>{id}</div>
+      <StyledGalleryItem>
+        <id>{id}</id>
         <Icon />
-      </>
+      </StyledGalleryItem>
     );
   }
 }
