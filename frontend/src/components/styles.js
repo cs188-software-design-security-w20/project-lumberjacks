@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 
+const black = 'rgba(0, 0,0, 0.8)';
+const secondaryBlack = 'rgba(0, 0,0, 0.4)';
+const tertiaryBlack = 'rgba(0, 0,0, 0.1)';
 const gray = '#F3F3F3';
 
 export const StyledGalleryItem = styled.div`
@@ -33,4 +36,32 @@ export const StyledButton = styled.button`
     opacity: 0.8;
     cursor: pointer;
   }
+`;
+
+export const StyledContainer = styled.div`
+  max-width: 600px;
+  width: 100%;
+  padding: 40px 20px;
+  height: 100%;
+  margin: 0 auto;
+`;
+
+const headerTextStyle = css`
+  font-style: normal;
+  font-weight: normal;
+  margin: 0;
+  color: ${black};
+`;
+
+export const StyledHeaderText = styled.h1`
+  ${headerTextStyle}
+  font-size: 36px;
+  margin-top: 48px;
+`;
+
+export const StyledSubheaderText = styled.h2`
+  ${headerTextStyle}
+  font-size: 18px;
+  margin-top: 8px;
+  margin-bottom: 54px;
 `;
