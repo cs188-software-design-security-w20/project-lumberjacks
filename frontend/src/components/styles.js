@@ -65,3 +65,10 @@ export const StyledSubheaderText = styled.h2`
   margin-top: 8px;
   margin-bottom: 54px;
 `;
+
+export const StyledLabelText = styled.h3`
+  ${headerTextStyle}
+  display: block;
+  font-size: 15px;
+  margin-bottom: 5px;
+`;
