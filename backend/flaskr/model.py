@@ -38,9 +38,10 @@ class Link(db.Model):
     __tablename__ = 'links'
     id = db.Column(db.Integer, primary_key=True, index=True)
     shortlink = db.Column(db.String(64), unique=True)
-    links = db.Column(db.ARRAY(db.String, dimensions=1), nullable=True)
+    links = db.Column(db.String(1024), nullable=True)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     repost_id = db.Column(db.Integer, nullable=True)
     visibility = db.Column(db.Integer, default=VisiilityType.PRIVATE)
     post_type = db.Column(db.Integer, default=PostType.DEFAULT)
     upvotes = db.Column(db.Integer, default=0)
+    time_created = db.Column(db.DateTime, index=True)
