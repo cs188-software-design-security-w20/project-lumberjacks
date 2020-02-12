@@ -10,7 +10,7 @@ def index():
     return 'Test'
 
 @main.route('/login', methods=['POST'])
-def login();
+def login():
     user_info = db_manager.log_in(request.get_json(force=True))
     if user_info == -1:
         return {'error': 'User doesn\'t exist'}
