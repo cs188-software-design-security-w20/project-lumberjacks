@@ -106,6 +106,7 @@ class DatabaseManager():
         Create link
         '''
         shortlink = uuid.uuid4().hex.upper()[0:6]
+        name = link_json['name']
         links = link_json['links']
         visibility = link_json['visibility']
         post_type = link_json['post_type']
@@ -116,6 +117,7 @@ class DatabaseManager():
 
         new_link = Link(
                 shortlink=shortlink,
+                name=name,
                 links=links,
                 visibility=visibility,
                 post_type=post_type,
