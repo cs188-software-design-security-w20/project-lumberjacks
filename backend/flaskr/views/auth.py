@@ -30,7 +30,7 @@ def logout():
 @main.route('/auth', methods=['GET']) 
 def auth():
     user_info = db_manager.auth()
-    if (user_info is not None):
+    if user_info is not None:
         return user_info
     else:
         return {'error': 'Could not authenticate'}

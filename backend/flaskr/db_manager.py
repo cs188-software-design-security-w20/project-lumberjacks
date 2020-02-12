@@ -1,12 +1,13 @@
 # flake8 compatible
 import sqlalchemy
+import uuid
 
 from collections import defaultdict
 from datetime import datetime, date, time, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from . import db
-from .model import User
+from .model import User, Link, PostType
 from flask_login import login_user, login_required, current_user, logout_user
 
 class DatabaseManager():
@@ -89,10 +90,7 @@ class DatabaseManager():
     @login_required
     def edit_user(self, user_json):
         '''
-        Takes in a json-converted dict including 4 fields about a user:
-        username: string, email: string,
-        password: string, is_instructor: string
-        Updates existing user info in the database.
+        Update user info
         '''
         current_user.username = user_json['username']
         current_user.email = user_json['email']
@@ -101,3 +99,35 @@ class DatabaseManager():
 
         db.session.commit()
         return True
+
+    @login_required
+    def add_link(self, link_json):
+        '''
+        Create link
+        '''
+        shortlink = uuid.uuid4().hex.upper()[0:6]
+        links = link_json['links']
+        visibility = link_json['visibility']
+        post_type = link_json['post_type']
+        repost_id = link_json['repost_id'] if post_type == PostType.REPOST \
+             else -1
+        time_created = datetime.now()
+        author_id = current_user.id
+
+        # TODO: concat links from repost
+
+        new_link = Link(
+                shortlink=shortlink,
+                links=links,
+                visibility=visibility,
+                post_type=post_type,
+                repost_id=repost_id,
+                time_created=time_created,
+                author_id=author_id
+            )
+        try:
+            db.session.add(new_link)
+            db.session.commit()
+            return {'shortlink': shortlink}
+        except sqlalchemy.exc.IntegrityError:
+            return {'error': 'Server error'}
