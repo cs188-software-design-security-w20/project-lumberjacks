@@ -36,8 +36,22 @@ class PostType:
 
 class Link(db.Model):
     __tablename__ = 'links'
+
+    def as_dict(self):
+        return {'id': self.id,
+               'shortlink': self.shortlink,
+               'name': self.name,
+               'links': self.links,
+               'author_id': self.author_id,
+               'repost_id': self.repost_id,
+               'visibility': self.visibility,
+               'post_type': self.post_type,
+               'upvotes': self.upvotes,
+               'time_created': str(self.time_created)}
+
     id = db.Column(db.Integer, primary_key=True, index=True)
     shortlink = db.Column(db.String(64), unique=True)
+    name = db.Column(db.String(128))
     links = db.Column(db.String(1024), nullable=True)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     repost_id = db.Column(db.Integer, nullable=True)

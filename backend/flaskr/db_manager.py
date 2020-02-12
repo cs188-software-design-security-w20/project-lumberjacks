@@ -114,8 +114,6 @@ class DatabaseManager():
         time_created = datetime.now()
         author_id = current_user.id
 
-        # TODO: concat links from repost
-
         new_link = Link(
                 shortlink=shortlink,
                 links=links,
@@ -131,3 +129,30 @@ class DatabaseManager():
             return {'shortlink': shortlink}
         except sqlalchemy.exc.IntegrityError:
             return {'error': 'Server error'}
+
+    def shortlink_to_link_id(self, shortlink):
+        '''
+        Convert from shortlink to link_id
+        '''
+        link = Link.query.filter_by(
+                    shortlink=shortlink
+                ).first()
+
+        if not link:
+            return {'error': 'Shortlink not found'}
+        else:
+            return {'id': link.id}     
+
+    def get_link(self, link_id):
+        '''
+        Get link
+        '''
+        link = Link.query.filter_by(
+                    id=link_id
+                ).first()
+
+        if not link:
+            return {'error': 'Link not found'}
+        else:
+            return link.as_dict()
+
