@@ -45,4 +45,7 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Credentials', 'true')
         return response
 
+    from .views import main as main_blueprint
+    app.register_blueprint(main_blueprint)
+
     return app
