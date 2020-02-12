@@ -1,8 +1,8 @@
-"""fix migration
+"""add name, serialization for links
 
-Revision ID: 97883221faf0
+Revision ID: 221d38dd7c6f
 Revises: 
-Create Date: 2020-02-12 13:19:42.038079
+Create Date: 2020-02-12 14:11:47.483051
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '97883221faf0'
+revision = '221d38dd7c6f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,6 +31,7 @@ def upgrade():
     op.create_table('links',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('shortlink', sa.String(length=64), nullable=True),
+    sa.Column('name', sa.String(length=128), nullable=True),
     sa.Column('links', sa.String(length=1024), nullable=True),
     sa.Column('author_id', sa.Integer(), nullable=True),
     sa.Column('repost_id', sa.Integer(), nullable=True),

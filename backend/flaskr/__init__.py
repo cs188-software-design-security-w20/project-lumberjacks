@@ -1,4 +1,5 @@
 import os
+cur_dir = os.path.abspath(os.path.dirname(__file__))
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -16,6 +17,8 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
+        'sqlite:///' + os.path.join(cur_dir, 'data-dev.sqlite')
     )
 
     if test_config is None:
