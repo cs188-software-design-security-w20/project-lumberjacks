@@ -19,13 +19,12 @@ class User(UserMixin, db.Model):
     def is_authenticated(self):
         return True
 
-class VisiilityType:
+class VisibilityType:
     '''
     Enum for diff visibilities 
     '''
     PRIVATE = 0
     PUBLIC = 1
-    AGE_RESTRICTED = 2 # implies public
 
 class PostType:
     '''
@@ -55,7 +54,8 @@ class Link(db.Model):
     links = db.Column(db.String(1024), nullable=True)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'), index=True)
     repost_id = db.Column(db.Integer, nullable=True)
-    visibility = db.Column(db.Integer, default=VisiilityType.PRIVATE)
+    visibility = db.Column(db.Integer, default=VisibilityType.PRIVATE)
+    age_restricted = db.Column(db.Boolean, default=False)
     post_type = db.Column(db.Integer, default=PostType.DEFAULT)
     upvotes = db.Column(db.Integer, default=0)
     time_created = db.Column(db.DateTime, index=True)

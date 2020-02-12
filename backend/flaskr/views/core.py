@@ -13,3 +13,16 @@ def add_link():
       return link_success
     else:
       return {'error': link_success['error']}
+
+@main.route('/gallery', methods=['GET'])
+@login_required
+def get_private():
+    limit = request.args.get('limit', 10)
+    offset = request.args.get('offset',0)
+    return db_manager.get_authored_links(limit, offset)
+
+@main.route('/feed', methods=['GET'])
+def get_public():
+    limit = request.args.get('limit', 10)
+    offset = request.args.get('offset',0)
+    return db_manager.get_public_links(limit, offset)

@@ -7,7 +7,7 @@ from datetime import datetime, date, time, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from . import db
-from .model import User, Link, PostType
+from .model import User, Link, PostType, VisibilityType
 from flask_login import login_user, login_required, current_user, logout_user
 
 class DatabaseManager():
@@ -157,4 +157,21 @@ class DatabaseManager():
             return {'error': 'Link not found'}
         else:
             return link.as_dict()
+
+    @login_required
+    def get_authored_links(self, limit, offset):
+        '''
+        Get links authored by self
+        '''
+        authored_links = Link.query.filter_by(author_id=current_user.id).\
+            offset(offset).limit(limit)
+        return [authored_link.as_dict() for authored_link in authored_links]
+
+    def get_public_links(self, limit, offset):
+        '''
+        Get most recent public links
+        '''
+        public_links = Link.query.filter_by(visibility=VisibilityType.PUBLIC).\
+            order_by(Link.time_created).offset(offset).limit(limit)
+        return [public_link.as_dict() for public_link in public_links]
 
