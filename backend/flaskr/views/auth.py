@@ -25,7 +25,7 @@ def login();
 @login_required
 def logout():
     db_manager.logout()
-    return 'success'
+    return {'message': 'Success'}
 
 @main.route('/auth', methods=['GET']) 
 def auth():
