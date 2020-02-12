@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "yarn webpack-dev-server --env.mode development --hot"
+    "dev": "yarn webpack-dev-server --env.mode development --hot",
+    "build": "yarn webpack --env.mode production"
   },
   "repository": {
     "type": "git",
@@ -18,10 +19,13 @@
   },
   "homepage": "https://github.com/cs188-software-design-security-w20/project-lumberjacks#readme",
   "dependencies": {
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "react-svg-loader": "^3.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
