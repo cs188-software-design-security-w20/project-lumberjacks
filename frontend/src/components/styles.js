@@ -6,6 +6,13 @@ const secondaryBlack = 'rgba(0, 0,0, 0.4)';
 const tertiaryBlack = 'rgba(0, 0,0, 0.1)';
 const gray = '#F3F3F3';
 
+const textStyle = css`
+  font-family: sans-serif;
+  font-weight: normal;
+  margin: 0;
+  color: ${black};
+`;
+
 export const StyledGalleryItem = styled.div`
   position: relative;
   background-color: ${gray};
@@ -17,15 +24,13 @@ export const StyledGalleryItem = styled.div`
 export const StyledButton = styled.button`
   display: block;
   width: auto;
-  height: 40px;
   line-height: 40px;
   border-radius: 4px;
   border: 0;
   font-size: 16px;
-  padding: 0 16px;
+  padding: 0 25px 0 25px;
   font-style: normal;
   font-weight: normal;
-  margin: 0 auto;
   box-sizing: border-box;
   color: white;
   background-color: ${black};
@@ -37,53 +42,46 @@ export const StyledButton = styled.button`
 `;
 
 export const StyledContainer = styled.div`
-  max-width: 600px;
+  ${textStyle}
   width: 100%;
-  padding: 40px 20px;
+  // padding: 40px 20px;
   height: 100%;
   margin: 0 auto;
 `;
 
-const headerTextStyle = css`
-  font-family: sans-serif;
-  font-weight: normal;
-  margin: 0;
-  color: ${black};
-`;
-
 export const StyledTitleText = styled.h1`
-  ${headerTextStyle}
+  ${textStyle}
   font-size: 35px;
   margin-bottom: 20px;
 `;
 
 // Despite the names, these are just used for the shortcuts
 export const StyledHeaderText = styled.h1`
-  ${headerTextStyle}
+  ${textStyle}
   font-size: 25px;
   margin-bottom: 20px;
 `;
 
 export const StyledSubheaderText = styled.h2`
-  ${headerTextStyle}
+  ${textStyle}
   font-size: 14px;
 `;
 
 export const StyledLabelText = styled.h3`
-  ${headerTextStyle}
+  ${textStyle}
   display: block;
   font-size: 13px;
   margin-bottom: 5px;
 `;
 
 export const StyledList = styled.ul`
-  ${headerTextStyle}
+  ${textStyle}
   display: block;
   padding: 0;
 `;
 
 export const StyledListItem = styled.li`
-  ${headerTextStyle}
+  ${textStyle}
   display: block;
   font-size: 14px;
 `;
