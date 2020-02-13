@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyledButton, StyledContainer } from '../components/styles';
 
 // need to add logic to validate credentials & log in if valid; reject if invalid (inside handleSubmit)
 
@@ -8,46 +9,60 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
+      email: '',
     };
 
     // handle form submissions
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleUserNameChange = this.handleUserNameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleSubmit(e) {
-    console.log('You logged in!');
+    console.log(this.state);
   }
 
-  handleUserNameChange(e) {
-    this.setState({ username: e.target.value });
-  }
-
-  handlePasswordChange(e) {
-    this.setState({ password: e.target.value });
+  handleInputChange(e, key) {
+    this.setState({ [key]: e.target.value });
   }
 
   render() {
+    const { login } = this.props;
     return (
-      <div>
-        <h1>Log In</h1>
-        <form onSubmit={this.handleSubmit}>
+      <StyledContainer>
+        {login ? <h1>Log In</h1> : <h1>Sign up</h1>}
+        <div>
+          {!login && (
+            <>
+              {' '}
+              <label>Email</label>
+              <input
+                type="text"
+                value={this.state.email}
+                onChange={e => this.handleInputChange(e, 'email')}
+              />
+            </>
+          )}
+        </div>
+        <div>
           <label>User Name</label>
           <input
             type="text"
             value={this.state.username}
-            onChange={this.handleUserNameChange}
+            onChange={e => this.handleInputChange(e, 'username')}
           />
+        </div>
+        <div style={{ marginBottom: 10 }}>
           <label>Password</label>
           <input
             type="text"
             value={this.state.password}
-            onChange={this.handlePasswordChange}
+            onChange={e => this.handleInputChange(e, 'password')}
           />
-          <input type="submit" value="Login" />
-        </form>
-      </div>
+        </div>
+        <StyledButton onClick={this.handleSubmit}>
+          {this.props.login ? 'Login' : 'Sign up'}
+        </StyledButton>
+      </StyledContainer>
     );
   }
 }

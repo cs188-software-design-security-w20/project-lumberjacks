@@ -1,12 +1,12 @@
 import React from 'react';
-import GalleryList from '../components/GalleryList';
+import FeedContainer from '../components/FeedContainer';
 import Login from './Login';
 
 const Home = () => (
-  <div>
-    <Login />
-    <GalleryList />
-  </div>
+  <>
+    <Login login={true} />
+    <Login login={false} />
+  </>
 );
 
 export default Home;
