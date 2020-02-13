@@ -1,5 +1,6 @@
 import React from 'react';
-import GalleryItem from './GalleryItem';
+import Shortcut from './Shortcut';
+import { StyledTitleText } from './styles';
 
 // need to add logic to pull from data -> update GalleryItems
 
@@ -12,9 +13,9 @@ class GalleryList extends React.Component {
   render() {
     return (
       <div>
-        <h1>Gallery List</h1>
+        <StyledTitleText>Feed</StyledTitleText>
         <div>
-          <GalleryItem id="0" shortcutName="Bryan's link" macro="H532AL3M3" />
+          <Shortcut id="0" shortcutName="Bryan's link" macro="H532AL3M3" />
         </div>
       </div>
     );

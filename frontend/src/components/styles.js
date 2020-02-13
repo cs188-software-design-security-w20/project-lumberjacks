@@ -51,6 +51,13 @@ const headerTextStyle = css`
   color: ${black};
 `;
 
+export const StyledTitleText = styled.h1`
+  ${headerTextStyle}
+  font-size: 35px;
+  margin-bottom: 20px;
+`;
+
+// Despite the names, these are just used for the shortcuts
 export const StyledHeaderText = styled.h1`
   ${headerTextStyle}
   font-size: 25px;

@@ -1,11 +1,11 @@
 import React from 'react';
-import GalleryList from '../components/GalleryList';
+import Feed from '../components/Feed';
 import Login from './Login';
 
 const Home = () => (
   <div>
     <Login />
-    <GalleryList />
+    <Feed />
   </div>
 );
 
