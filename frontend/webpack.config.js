@@ -8,7 +8,7 @@ const webpackMerge = require('webpack-merge');
 const webpackModeConfig = env =>
   require(`./build_system/webpack.${env.mode}.js`)(env);
 
-const createConfig = ({ mode } = { mode: 'production' }) => {
+const createConfig = (env = { mode: 'production' }) => {
   const config = webpackMerge(
     {
       target: 'web',
@@ -91,7 +91,7 @@ const createConfig = ({ mode } = { mode: 'production' }) => {
         historyApiFallback: true,
       },
     },
-    webpackModeConfig({ mode }),
+    webpackModeConfig(env),
   );
   return config;
 };
