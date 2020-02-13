@@ -1,6 +1,12 @@
 import React from 'react';
 import Icon from './Icon';
-import { StyledGalleryItem } from './styles';
+import {
+  StyledGalleryItem,
+  StyledSubheaderText,
+  StyledHeaderText,
+  StyledList,
+  StyledListItem,
+} from './styles';
 
 class GalleryItem extends React.Component {
   constructor(props) {
@@ -12,11 +18,15 @@ class GalleryItem extends React.Component {
   }
 
   render() {
-    const { id, shortcut, urls, createdAt, display } = this.props;
+    const { id, macro, urls, createdAt, userName, shortcutName } = this.props;
     return (
       <StyledGalleryItem>
-        <id>{id}</id>
-        <Icon />
+        <StyledSubheaderText>{macro}</StyledSubheaderText>
+        <StyledHeaderText>{shortcutName}</StyledHeaderText>
+        <StyledList>
+          <StyledListItem>http://facebook.com</StyledListItem>
+          <StyledListItem>http://facebook.com</StyledListItem>
+        </StyledList>
       </StyledGalleryItem>
     );
   }

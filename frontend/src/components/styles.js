@@ -8,8 +8,6 @@ const gray = '#F3F3F3';
 
 export const StyledGalleryItem = styled.div`
   position: relative;
-  display: flex;
-  justify-content: space-between;
   background-color: ${gray};
   border-radius: 4px;
   margin-bottom: 16px;
@@ -47,7 +45,7 @@ export const StyledContainer = styled.div`
 `;
 
 const headerTextStyle = css`
-  font-style: normal;
+  font-family: sans-serif;
   font-weight: normal;
   margin: 0;
   color: ${black};
@@ -55,20 +53,30 @@ const headerTextStyle = css`
 
 export const StyledHeaderText = styled.h1`
   ${headerTextStyle}
-  font-size: 36px;
-  margin-top: 48px;
+  font-size: 25px;
+  margin-bottom: 20px;
 `;
 
 export const StyledSubheaderText = styled.h2`
   ${headerTextStyle}
-  font-size: 18px;
-  margin-top: 8px;
-  margin-bottom: 54px;
+  font-size: 14px;
 `;
 
 export const StyledLabelText = styled.h3`
   ${headerTextStyle}
   display: block;
-  font-size: 15px;
+  font-size: 13px;
   margin-bottom: 5px;
+`;
+
+export const StyledList = styled.ul`
+  ${headerTextStyle}
+  display: block;
+  padding: 0;
+`;
+
+export const StyledListItem = styled.li`
+  ${headerTextStyle}
+  display: block;
+  font-size: 14px;
 `;

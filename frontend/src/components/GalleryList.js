@@ -14,7 +14,7 @@ class GalleryList extends React.Component {
       <div>
         <h1>Gallery List</h1>
         <div>
-          <GalleryItem id="0" />
+          <GalleryItem id="0" shortcutName="Bryan's link" macro="H532AL3M3" />
         </div>
       </div>
     );
