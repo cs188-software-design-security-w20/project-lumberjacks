@@ -1,12 +1,7 @@
 import React from 'react';
-import Feed from '../components/Feed';
+import FeedContainer from '../components/FeedContainer';
 import Login from './Login';
 
-const Home = () => (
-  <div>
-    <Login />
-    <Feed />
-  </div>
-);
+const Home = () => <Login />;
 
 export default Home;
