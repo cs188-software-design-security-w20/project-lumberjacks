@@ -1,4 +1,4 @@
-module.exports = ({ minify }) => ({
+module.exports = () => ({
   module: {
     rules: [
       {
