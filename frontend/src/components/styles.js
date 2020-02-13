@@ -70,7 +70,8 @@ export const StyledSubheaderText = styled.h2`
 export const StyledLabelText = styled.h3`
   ${textStyle}
   display: block;
-  font-size: 13px;
+  font-size: 20px;
+  font-weight: bold;
   margin-bottom: 5px;
 `;
 

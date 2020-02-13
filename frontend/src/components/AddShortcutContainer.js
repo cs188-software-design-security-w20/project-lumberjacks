@@ -5,6 +5,8 @@ import {
   StyledSubheaderText,
   StyledButton,
   StyledLabelText,
+  StyledList,
+  StyledListItem,
 } from './styles';
 
 import lumberFetch from '../lumberfetch';
@@ -22,12 +24,17 @@ const AddShortcutContainer = ({}) => {
         Input some text below to generate a lumberlink.
       </StyledSubheaderText>
       <div>
-        <StyledLabelText>URL</StyledLabelText>
-        <textarea></textarea>
+        <StyledLabelText>Name</StyledLabelText>
+        <input></input>
       </div>
       <div>
-        <StyledLabelText>Shortcut name (optional)</StyledLabelText>
-        <textarea></textarea>
+        <StyledLabelText>Links</StyledLabelText>
+        <StyledList>
+          <StyledListItem>
+            <input placeholder="ex: google.com"></input>
+            <input placeholder="ex: google.com"></input>
+          </StyledListItem>
+        </StyledList>
       </div>
       <StyledButton onClick={() => null}>Get link</StyledButton>
     </StyledContainer>
