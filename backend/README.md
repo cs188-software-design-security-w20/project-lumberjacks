@@ -1,5 +1,9 @@
 # LUMBERJACK SERVER
 
+## Basic Setup
+
+`pip3 install -r requirements.txt`
+
 ## To start server
 
 - Run `scripts/setup.sh` to initialize some envvars
