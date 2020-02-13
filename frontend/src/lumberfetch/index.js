@@ -8,7 +8,6 @@ class FetchWithHandling {
   static isJSON(response) {
     // returns true if response is of type JSON
     const contentType = response.headers.get('content-type');
-
     return contentType && contentType.includes('application/json');
   }
 
@@ -20,7 +19,6 @@ class FetchWithHandling {
     if (this.isJSON(response)) {
       return response.json();
     }
-
     return response.text();
   }
 
@@ -32,13 +30,14 @@ class FetchWithHandling {
    */
   static fetchWrapper(url, params, verb) {
     // for logging/debugging
-    console.log(`${verb} ${url}`, params);
+
+    if (DEBUG) console.log(`${verb} ${url}`, params);
 
     // options are the complicated object of options that are passed in a fetch response
     // another benefit of abstracting this portion away
     let options = {
       method: verb,
-      headers: Request.headers(),
+      headers: FetchWithHandling.headers(),
     };
 
     if (params) {
@@ -54,23 +53,26 @@ class FetchWithHandling {
 
         // success, simply return promise of parsed response
         if (fetchStatusCode === 200 || fetchStatusCode === 201) {
-          return Request.parseResponseBody(fetchResponse);
+          return FetchWithHandling.parseResponseBody(fetchResponse);
         } else {
           // throw errors if bad status
-          return Request.parseResponseBody(response)
+          return FetchWithHandling.parseResponseBody(response)
             .then(body => {
               errorResponse = body;
               throw new Error(
                 `${url} failed status=${response.status} errorResponse=${errorResponse}`,
               );
             })
-            .catch(() => {
+            .catch(exception => {
+              if (DEBUG) throw exception;
+
               // catch error if parseResponseBody throws an error
-              throw new Error(`${url} failed status=${response.status}`);
+              throw new Error(`${url} failed errorResponse=${exception}`);
             });
         }
       })
       .catch(exception => {
+        if (DEBUG) throw exception;
         // catch JSE
 
         // give details on what the error was so it doesn't have to be deciphered up the call stack
@@ -82,7 +84,7 @@ class FetchWithHandling {
           errorType = 'PARSE RESPONSE FAILURE';
         } else {
           // generic error
-          errorType = 'API CALL FAILURE';
+          errorType = 'Internal Fetch Service Error';
         }
 
         // a meaningful error
@@ -121,6 +123,10 @@ class FetchWithMiddleware {
       return fetchWithMiddleware;
     })();
   }
+
+  getFetch() {
+    return this.fetch;
+  }
 }
 
 class LumberFetch {
@@ -128,17 +134,19 @@ class LumberFetch {
     this.fetch = fetchFn;
   }
 
-  static get(url) {
-    return this.fetch(url, null, 'GET');
+  get(url) {
+    return this.fetch(API_BASE + url, null, 'GET');
   }
-  static post(url, params) {
-    return this.fetch(url, params, 'POST');
+  post(url, params) {
+    return this.fetch(API_BASE + url, params, 'POST');
   }
 }
 
-const fetchWithMiddleware = new FetchWithMiddleware(FetchWithHandling);
+const fetchWithMiddleware = new FetchWithMiddleware(
+  FetchWithHandling.fetchWrapper,
+);
 fetchWithMiddleware.registerMiddlewares([]);
 fetchWithMiddleware.applyMiddlewares();
-const lumberFetch = new LumberFetch(fetchWithMiddleware);
+const lumberFetch = new LumberFetch(fetchWithMiddleware.getFetch());
 
 export default lumberFetch;

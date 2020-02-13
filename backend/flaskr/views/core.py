@@ -5,6 +5,21 @@ from flask_login import login_required
 
 from . import main
 
+@main.route('/<shortlink>', methods=['GET'])
+def get_links(shortlink):
+    link_id = db_manager.shortlink_to_link_id(shortlink)['id']
+    link = db_manager.get_link(link_id)
+    permissions = db_manager.check_permissions(link)
+    # fine
+    if permissions == 0: 
+        return {'links': links['links']}
+    # age-restricted
+    elif permissions == 1:
+        return {'error': 'This content has been age-restricted'}
+    # private / not logged in
+    elif permissions == 2:
+        return {'error': 'This link is private. If it is yours, you need to log in.'}
+  
 @main.route('/add_link', methods=['POST'])
 @login_required
 def add_link():
