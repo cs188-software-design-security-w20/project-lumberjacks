@@ -15,6 +15,10 @@ yarn
 yarn dev
 ```
 
+or
+
+`yarn dev-debug`
+
 ### Build (Prod) Instructions
 
 ```bash
