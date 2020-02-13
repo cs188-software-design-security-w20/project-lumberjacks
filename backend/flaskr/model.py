@@ -44,6 +44,7 @@ class Link(db.Model):
                'author_id': self.author_id,
                'repost_id': self.repost_id,
                'visibility': self.visibility,
+               'age_restricted': self.age_restricted,
                'post_type': self.post_type,
                'upvotes': self.upvotes,
                'time_created': str(self.time_created)}

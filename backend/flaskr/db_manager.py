@@ -175,3 +175,22 @@ class DatabaseManager():
             order_by(Link.time_created).offset(offset).limit(limit)
         return [public_link.as_dict() for public_link in public_links]
 
+    def check_permissions(self, link):
+        '''
+        Check permissions of viewing
+        Return code 0 = okay
+        code 1 = age-restricted
+        code 2 = not viewable
+        '''       
+        if link['visibility'] == VisibilityType.PUBLIC and \
+            link['age_restricted'] and \
+             ((current_user is not None and current_user.age < 18) or \
+             current_user is None):
+            return 1
+
+        if link['visibility'] == VisibilityType.PUBLIC or \
+             (current_user is not None and current_user.id == link['author_id']):
+            return 0
+
+        return 2
+
