@@ -10,6 +10,7 @@ from . import db
 from .model import User, Link, PostType, VisibilityType
 from flask_login import login_user, login_required, current_user, logout_user
 
+
 class DatabaseManager():
     __instance = None
 
@@ -51,13 +52,13 @@ class DatabaseManager():
         if len(user_json['email'] > 0):
             current_user = User.query.filter_by(
                 email=user_json['email']
-                ).first()
+            ).first()
 
         if not current_user:
             if len(user_json['username'] > 0):
                 current_user = User.query.filter_by(
                     username=user_json['username']
-                    ).first()
+                ).first()
 
         if not current_user:
             return -1
@@ -69,7 +70,7 @@ class DatabaseManager():
         else:
             return -2
         return -3
-    
+
     def auth(self):
         '''
         Auth which can be polled for
@@ -78,11 +79,11 @@ class DatabaseManager():
             return {'name': current_user.username, 'email': current_user.email}
         else:
             return None
-    
+
     @login_required
     def logout(self):
         logout_user()
-    
+
     @login_required
     def get_username(self):
         return current_user.username
@@ -94,8 +95,9 @@ class DatabaseManager():
         '''
         current_user.username = user_json['username']
         current_user.email = user_json['email']
-        if (len(user_json['password'])>2) :
-            current_user.password_hash = str(generate_password_hash(user_json['password']))
+        if (len(user_json['password']) > 2):
+            current_user.password_hash = str(
+                generate_password_hash(user_json['password']))
 
         db.session.commit()
         return True
@@ -111,20 +113,20 @@ class DatabaseManager():
         visibility = link_json['visibility']
         post_type = link_json['post_type']
         repost_id = link_json['repost_id'] if post_type == PostType.REPOST \
-             else -1
+            else -1
         time_created = datetime.now()
         author_id = current_user.id
 
         new_link = Link(
-                shortlink=shortlink,
-                name=name,
-                links=links,
-                visibility=visibility,
-                post_type=post_type,
-                repost_id=repost_id,
-                time_created=time_created,
-                author_id=author_id
-            )
+            shortlink=shortlink,
+            name=name,
+            links=links,
+            visibility=visibility,
+            post_type=post_type,
+            repost_id=repost_id,
+            time_created=time_created,
+            author_id=author_id
+        )
         try:
             db.session.add(new_link)
             db.session.commit()
@@ -137,21 +139,21 @@ class DatabaseManager():
         Convert from shortlink to link_id
         '''
         link = Link.query.filter_by(
-                    shortlink=shortlink
-                ).first()
+            shortlink=shortlink
+        ).first()
 
         if not link:
             return {'error': 'Shortlink not found'}
         else:
-            return {'id': link.id}     
+            return {'id': link.id}
 
     def get_link(self, link_id):
         '''
         Get link
         '''
         link = Link.query.filter_by(
-                    id=link_id
-                ).first()
+            id=link_id
+        ).first()
 
         if not link:
             return {'error': 'Link not found'}
@@ -181,16 +183,15 @@ class DatabaseManager():
         Return code 0 = okay
         code 1 = age-restricted
         code 2 = not viewable
-        '''       
+        '''
         if link['visibility'] == VisibilityType.PUBLIC and \
             link['age_restricted'] and \
-             ((current_user is not None and current_user.age < 18) or \
+            ((current_user is not None and current_user.age < 18) or
              current_user is None):
             return 1
 
         if link['visibility'] == VisibilityType.PUBLIC or \
-             (current_user is not None and current_user.id == link['author_id']):
+                (current_user is not None and current_user.id == link['author_id']):
             return 0
 
         return 2
-
