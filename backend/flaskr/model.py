@@ -5,6 +5,7 @@ from flask_login import UserMixin
 
 from . import db
 
+
 class User(UserMixin, db.Model):
     '''
     Stores users
@@ -19,12 +20,15 @@ class User(UserMixin, db.Model):
     def is_authenticated(self):
         return True
 
+
 class VisibilityType:
     '''
     Enum for diff visibilities 
     '''
     PRIVATE = 0
     PUBLIC = 1
+    GLOBAL = 2
+
 
 class PostType:
     '''
@@ -33,21 +37,22 @@ class PostType:
     DEFAULT = 0
     REPOST = 1
 
+
 class Link(db.Model):
     __tablename__ = 'links'
 
     def as_dict(self):
         return {'id': self.id,
-               'shortlink': self.shortlink,
-               'name': self.name,
-               'links': self.links,
-               'author_id': self.author_id,
-               'repost_id': self.repost_id,
-               'visibility': self.visibility,
-               'age_restricted': self.age_restricted,
-               'post_type': self.post_type,
-               'upvotes': self.upvotes,
-               'time_created': str(self.time_created)}
+                'shortlink': self.shortlink,
+                'name': self.name,
+                'links': self.links,
+                'author_id': self.author_id,
+                'repost_id': self.repost_id,
+                'visibility': self.visibility,
+                'age_restricted': self.age_restricted,
+                'post_type': self.post_type,
+                'upvotes': self.upvotes,
+                'time_created': str(self.time_created)}
 
     id = db.Column(db.Integer, primary_key=True, index=True)
     shortlink = db.Column(db.String(64), unique=True)
@@ -59,4 +64,21 @@ class Link(db.Model):
     age_restricted = db.Column(db.Boolean, default=False)
     post_type = db.Column(db.Integer, default=PostType.DEFAULT)
     upvotes = db.Column(db.Integer, default=0)
+    time_created = db.Column(db.DateTime, index=True)
+
+
+class ExternalLink(db.Model):
+    __tablename__ = 'external_links'
+
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'shortlink': self.shortlink,
+            'link': self.link,
+            'time_created': str(self.time_created)
+        }
+
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    link = db.Column(db.String(1024))
+    shortlink = db.Column(db.String(64))
     time_created = db.Column(db.DateTime, index=True)
