@@ -5,6 +5,7 @@ from flask_login import login_required
 
 from . import main
 from flaskr.db_manager import DatabaseManager
+from flaskr.model import VisibilityType, PostType
 
 db_manager = DatabaseManager.get_instance()
 
@@ -37,8 +38,8 @@ def add_link():
     db_payload = {
         'name': payload['name'],
         'links': payload['links'],
-        'visibility': payload.get('visibility', 'private'),
-        'post_type': payload.get('post_type', 'post'),
+        'visibility': payload.get('visibility', VisibilityType.PRIVATE),
+        'post_type': payload.get('post_type', PostType.DEFAULT),
         'repost_id': payload.get('repost_id', -1)
     }
 
