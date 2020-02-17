@@ -4,14 +4,20 @@ from flask import request, redirect, render_template
 from flask_login import login_required
 
 from . import main
+from flaskr.db_manager import DatabaseManager
 
-@main.route('/', methods=['GET', 'POST']) 
+db_manager = DatabaseManager.get_instance()
+
+
+@main.route('/', methods=['GET', 'POST'])
 def index():
     return 'Test'
 
+
 @main.route('/login', methods=['POST'])
 def login():
-    user_info = db_manager.log_in(request.get_json(force=True))
+    payload = request.get_json(force=True)
+    user_info = db_manager.log_in(payload)
     if user_info == -1:
         return {'error': 'User doesn\'t exist'}
     elif user_info == -2:
@@ -21,13 +27,15 @@ def login():
     else:
         return user_info
 
+
 @main.route('/logout')
 @login_required
 def logout():
     db_manager.logout()
     return {'message': 'Success'}
 
-@main.route('/auth', methods=['GET']) 
+
+@main.route('/auth', methods=['GET'])
 def auth():
     user_info = db_manager.auth()
     if user_info is not None:

@@ -49,13 +49,13 @@ class DatabaseManager():
         '''
         Logs in using email or username and password
         '''
-        if len(user_json['email'] > 0):
+        if len(user_json['email']) > 0:
             current_user = User.query.filter_by(
                 email=user_json['email']
             ).first()
 
         if not current_user:
-            if len(user_json['username'] > 0):
+            if len(user_json['username']) > 0:
                 current_user = User.query.filter_by(
                     username=user_json['username']
                 ).first()

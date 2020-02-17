@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledButton, StyledContainer } from '../components/styles';
-import lumberFetch from '../lumberfetch';
 import User from '../api_clients/user';
+import Auth from '../api_clients/auth';
 
 // need to add logic to validate credentials & log in if valid; reject if invalid (inside handleSubmit)
 
@@ -20,11 +20,11 @@ class Login extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log(this.state);
+    const { email, username, password } = this.state;
     // If logging in and not signing up
     if (this.props.login) {
+      Auth.login({ emailOrUsername: username, password });
     } else {
-      const { email, username, password } = this.state;
       User.createUser({
         email,
         username,
