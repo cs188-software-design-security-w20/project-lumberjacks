@@ -1,6 +1,6 @@
 import json
 
-from flask import request, redirect, render_template
+from flask import request, redirect, render_template, Response
 from flask_login import login_required
 
 from . import main
@@ -17,7 +17,7 @@ def get_links(shortlink):
     permissions = db_manager.check_permissions(link)
     # fine
     if permissions == 0:
-        return Response({'links': links['links']}, status=201, mimetype='application/json')
+        return Response({'links': link['links']}, status=201, mimetype='application/json')
 
     # age-restricted
     elif permissions == 1:
@@ -73,11 +73,11 @@ def get_public():
 @login_required
 def upvote_post():
     payload = request.get_json(force=True)
-    parameters = ['post_id']
+    post_id = payload['post_id']
 
     upvote_response = db_manager.upvote_post(post_id)
     if 'error' in upvote_response:
-        return Response(add_link_response['error'], status=500, mimetype='application/text')
+        return Response(upvote_response['error'], status=500, mimetype='application/text')
     else:
         return Response({'message': 'Post upvoted.'}, status=201, mimetype='application/json')
 
