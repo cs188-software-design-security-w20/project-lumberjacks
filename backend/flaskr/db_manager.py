@@ -7,7 +7,7 @@ from datetime import datetime, date, time, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from . import db
-from .model import User, Link, PostType, VisibilityType
+from .model import User, Link, PostType, VisibilityType, SortType
 from flask_login import login_user, login_required, current_user, logout_user
 
 
@@ -169,12 +169,19 @@ class DatabaseManager():
             offset(offset).limit(limit)
         return [authored_link.as_dict() for authored_link in authored_links]
 
-    def get_public_links(self, limit, offset):
+    def get_public_links(self, limit, offset, sort_by=SortType.CHRONO):
         '''
-        Get most recent public links
+        Get most recent/top public links
         '''
-        public_links = Link.query.filter_by(visibility=VisibilityType.PUBLIC).\
-            order_by(Link.time_created).offset(offset).limit(limit)
+        public_links = []
+
+        if sort_by == SortType.CHRONO:
+            public_links = Link.query.filter_by(visibility=VisibilityType.PUBLIC).\
+                order_by(Link.time_created).offset(offset).limit(limit)
+        elif sort_by == SortType.TOP
+            public_links = Link.query.filter_by(visibility=VisibilityType.PUBLIC).\
+                order_by(Link.upvotes).offset(offset).limit(limit)
+
         return [public_link.as_dict() for public_link in public_links]
 
     def check_permissions(self, link):

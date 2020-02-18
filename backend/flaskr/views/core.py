@@ -5,7 +5,7 @@ from flask_login import login_required
 
 from . import main
 from flaskr.db_manager import DatabaseManager
-from flaskr.model import VisibilityType, PostType
+from flaskr.model import VisibilityType, PostType, SortType
 
 db_manager = DatabaseManager.get_instance()
 
@@ -62,4 +62,5 @@ def get_private():
 def get_public():
     limit = request.args.get('limit', 10)
     offset = request.args.get('offset', 0)
-    return db_manager.get_public_links(limit, offset)
+    sort_by = request.args.get('sort', SortType.CHRONO)
+    return db_manager.get_public_links(limit, offset, sort_by)

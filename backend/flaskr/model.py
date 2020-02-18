@@ -38,6 +38,14 @@ class PostType:
     REPOST = 1
 
 
+class SortType:
+    '''
+    Enum for sort order
+    '''
+    CHRONO = 0
+    TOP = 1
+
+
 class Link(db.Model):
     __tablename__ = 'links'
 
