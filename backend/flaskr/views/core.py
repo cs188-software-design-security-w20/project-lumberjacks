@@ -45,7 +45,7 @@ def add_link():
     }
 
     add_link_response = db_manager.add_link(db_payload)
-    if 'error' in link_success:
+    if 'error' in add_link_response:
         return Response(add_link_response['error'], status=500, mimetype='application/text')
     else:
         return Response({'message': 'Link Successfully Created.', 'shortlink': add_link_response['shortlink']}, status=201, mimetype='application/json')
@@ -67,4 +67,17 @@ def get_public():
     sort_by = request.args.get('sort', SortType.CHRONO)
     pub_links = db_manager.get_public_links(limit, offset, sort_by)
     return Response(pub_links, status=201, mimetype='application/json')
+
+
+@main.route('/upvote', methods=['POST'])
+@login_required
+def upvote_post():
+    payload = request.get_json(force=True)
+    parameters = ['post_id']
+
+    upvote_response = db_manager.upvote_post(post_id)
+    if 'error' in upvote_response:
+        return Response(add_link_response['error'], status=500, mimetype='application/text')
+    else:
+        return Response({'message': 'Post upvoted.'}, status=201, mimetype='application/json')
 

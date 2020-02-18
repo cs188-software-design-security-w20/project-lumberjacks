@@ -202,3 +202,14 @@ class DatabaseManager():
             return 0
 
         return 2
+
+    def upvote_post(self, post_id):
+        '''
+        Upvote post if possible
+        '''
+        target = Link.query.get(post_id)
+        target.upvotes += 1
+        db_session.add(target)
+        db_session.commit()
+
+        
