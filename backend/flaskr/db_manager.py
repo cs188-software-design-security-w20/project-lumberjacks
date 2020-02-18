@@ -178,7 +178,7 @@ class DatabaseManager():
         if sort_by == SortType.CHRONO:
             public_links = Link.query.filter_by(visibility=VisibilityType.PUBLIC).\
                 order_by(Link.time_created).offset(offset).limit(limit)
-        elif sort_by == SortType.TOP
+        elif sort_by == SortType.TOP:
             public_links = Link.query.filter_by(visibility=VisibilityType.PUBLIC).\
                 order_by(Link.upvotes).offset(offset).limit(limit)
 

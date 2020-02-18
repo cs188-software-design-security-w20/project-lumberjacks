@@ -17,13 +17,14 @@ def get_links(shortlink):
     permissions = db_manager.check_permissions(link)
     # fine
     if permissions == 0:
-        return {'links': links['links']}
+        return Response({'links': links['links']}, status=201, mimetype='application/json')
+
     # age-restricted
     elif permissions == 1:
-        return {'error': 'This content has been age-restricted'}
+        return Response('This content has been age-restricted', status=500, mimetype='application/text')
     # private / not logged in
     elif permissions == 2:
-        return {'error': 'This link is private. If it is yours, you need to log in.'}
+        return Response('This link is private. If it is yours, you need to log in.', status=500, mimetype='application/text')
 
 
 @main.route('/add_link', methods=['POST'])
@@ -55,7 +56,8 @@ def add_link():
 def get_private():
     limit = request.args.get('limit', 10)
     offset = request.args.get('offset', 0)
-    return db_manager.get_authored_links(limit, offset)
+    priv_links = db_manager.get_authored_links(limit, offset)
+    return Response(priv_links, status=201, mimetype='application/json')
 
 
 @main.route('/feed', methods=['GET'])
@@ -63,4 +65,6 @@ def get_public():
     limit = request.args.get('limit', 10)
     offset = request.args.get('offset', 0)
     sort_by = request.args.get('sort', SortType.CHRONO)
-    return db_manager.get_public_links(limit, offset, sort_by)
+    pub_links = db_manager.get_public_links(limit, offset, sort_by)
+    return Response(pub_links, status=201, mimetype='application/json')
+
