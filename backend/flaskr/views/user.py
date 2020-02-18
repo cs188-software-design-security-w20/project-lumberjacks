@@ -4,9 +4,7 @@ from flask import request, redirect, render_template, Response
 from flask_login import login_required
 
 from . import main
-from flaskr.db_manager import DatabaseManager
-
-db_manager = DatabaseManager.get_instance()
+from .. import db_manager
 
 
 @main.route('/create_user', methods=['POST'])

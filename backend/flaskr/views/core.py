@@ -4,11 +4,8 @@ from flask import request, redirect, render_template, Response
 from flask_login import login_required
 
 from . import main
-from flaskr.db_manager import DatabaseManager
-from flaskr.model import VisibilityType, PostType, SortType
-
-db_manager = DatabaseManager.get_instance()
-
+from .. import db_manager
+from ..model import VisibilityType, PostType, SortType
 
 @main.route('/<shortlink>', methods=['GET'])
 def get_links(shortlink):
