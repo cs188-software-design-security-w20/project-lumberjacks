@@ -13,7 +13,7 @@ import Core from '../api_clients/core';
 import { VisibilityType, POSTTYPE } from '../api_clients/core';
 
 const AddShortcutContainer = ({}) => {
-  const [links, setLinks] = React.useState(['']);
+  const [links, setLinks] = React.useState([{ value: null }]);
   const [linksAdded, setLinksAdded] = React.useState(false);
   const [visibility, setVisibility] = React.useState(VisibilityType.PRIVATE);
   const [shotcutName, setShortcutName] = React.useState(null);
@@ -39,6 +39,12 @@ const AddShortcutContainer = ({}) => {
     }
   };
 
+  const handleChange = (index, e) => {
+    links[index].value = e.target.value;
+    setLinks([...links]);
+  };
+
+  console.log(links);
   return linksAdded ? (
     <StyledContainer>
       <StyledHeaderText>Review your link and sharing settings</StyledHeaderText>
@@ -62,12 +68,14 @@ const AddShortcutContainer = ({}) => {
         onClick={() =>
           addShortcut({
             links,
-            name: 'bryans link',
-            visibility: VisibilityType.GLOBAL,
+            name: shortcutName,
+            visibility,
             post_type: POSTTYPE.DEFAULT,
           })
         }
-      />
+      >
+        Create
+      </StyledButton>
     </StyledContainer>
   ) : (
     <StyledContainer>
@@ -86,7 +94,7 @@ const AddShortcutContainer = ({}) => {
             <StyledListItem key={link + index}>
               {' '}
               <input
-                onChange={e => (links[index] = e.target.value)}
+                onChange={e => handleChange(index, e)}
                 placeholder="ex: google.com"
               ></input>
             </StyledListItem>
@@ -94,7 +102,8 @@ const AddShortcutContainer = ({}) => {
         </StyledList>
         <StyledButton
           onClick={() => {
-            setLinks(links.concat(['']));
+            setLinks([...links, { value: null }]);
+            console.log(links);
           }}
         >
           Add link
