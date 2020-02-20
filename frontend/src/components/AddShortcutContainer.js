@@ -16,7 +16,7 @@ const AddShortcutContainer = ({}) => {
   const [links, setLinks] = React.useState([{ value: null }]);
   const [linksAdded, setLinksAdded] = React.useState(false);
   const [visibility, setVisibility] = React.useState(VisibilityType.PRIVATE);
-  const [shotcutName, setShortcutName] = React.useState(null);
+  const [shortcutName, setShortcutName] = React.useState(null);
 
   const addShortcut = async ({
     links,
@@ -44,7 +44,6 @@ const AddShortcutContainer = ({}) => {
     setLinks([...links]);
   };
 
-  console.log(links);
   return linksAdded ? (
     <StyledContainer>
       <StyledHeaderText>Review your link and sharing settings</StyledHeaderText>
@@ -103,7 +102,6 @@ const AddShortcutContainer = ({}) => {
         <StyledButton
           onClick={() => {
             setLinks([...links, { value: null }]);
-            console.log(links);
           }}
         >
           Add link
