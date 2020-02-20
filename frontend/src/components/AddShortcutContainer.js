@@ -9,13 +9,33 @@ import {
   StyledListItem,
 } from './styles';
 
-import lumberFetch from '../lumberfetch';
+import Core from '../api_clients/core';
+import { VisibilityType, POSTTYPE } from '../api_clients/core';
 
 const AddShortcutContainer = ({}) => {
-  const [url, setURL] = React.useState('');
+  const [links, setLinks] = React.useState(['']);
   const [shotcutName, setShortcutName] = React.useState(null);
 
-  const generateShortcut = (urls, shortcutName) => {};
+  const addShortcut = async ({
+    links,
+    name,
+    post_type,
+    visibility,
+    repost_id,
+  }) => {
+    try {
+      const res = await Core.addLink({
+        name,
+        links,
+        visibility,
+        post_type,
+        repost_id,
+      });
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <StyledContainer>
@@ -25,18 +45,35 @@ const AddShortcutContainer = ({}) => {
       </StyledSubheaderText>
       <div>
         <StyledLabelText>Name</StyledLabelText>
-        <input></input>
+        <input onChange={e => setShortcutName(e.target.value)}></input>
       </div>
       <div>
         <StyledLabelText>Links</StyledLabelText>
         <StyledList>
           <StyledListItem>
-            <input placeholder="ex: google.com"></input>
-            <input placeholder="ex: google.com"></input>
+            {links.map((link, index) => (
+              <input
+                key={link}
+                // value={link}
+                onChange={e => (links[index] = e.target.value)}
+                placeholder="ex: google.com"
+              ></input>
+            ))}
           </StyledListItem>
         </StyledList>
       </div>
-      <StyledButton onClick={() => null}>Get link</StyledButton>
+      <StyledButton
+        onClick={() =>
+          addShortcut({
+            links,
+            name: 'bryans link',
+            visibility: VisibilityType.GLOBAL,
+            post_type: POSTTYPE.DEFAULT,
+          })
+        }
+      >
+        Get link
+      </StyledButton>
     </StyledContainer>
   );
 };

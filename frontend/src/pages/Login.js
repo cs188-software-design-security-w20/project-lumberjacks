@@ -19,11 +19,12 @@ class Login extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     const { email, username, password } = this.state;
     // If logging in and not signing up
     if (this.props.login) {
-      Auth.login({ emailOrUsername: username, password });
+      const a = await Auth.login({ emailOrUsername: username, password });
+      console.log(a);
     } else {
       User.createUser({
         email,

@@ -38,6 +38,7 @@ class FetchWithHandling {
     let options = {
       method: verb,
       headers: FetchWithHandling.headers(),
+      credentials: 'include',
     };
 
     if (params) {
@@ -45,6 +46,8 @@ class FetchWithHandling {
     }
 
     let fetchResponse, fetchStatusCode, errorResponse;
+
+    console.log(options);
 
     return fetch(url, options)
       .then(response => {
