@@ -14,6 +14,8 @@ import { VisibilityType, POSTTYPE } from '../api_clients/core';
 
 const AddShortcutContainer = ({}) => {
   const [links, setLinks] = React.useState(['']);
+  const [linksAdded, setLinksAdded] = React.useState(false);
+  const [visibility, setVisibility] = React.useState(VisibilityType.PRIVATE);
   const [shotcutName, setShortcutName] = React.useState(null);
 
   const addShortcut = async ({
@@ -37,7 +39,37 @@ const AddShortcutContainer = ({}) => {
     }
   };
 
-  return (
+  return linksAdded ? (
+    <StyledContainer>
+      <StyledHeaderText>Review your link and sharing settings</StyledHeaderText>
+      <div>LINKS GO HERE</div>
+      <div>
+        <input
+          onClick={() => {
+            setVisibility(VisibilityType.PUBLIC);
+          }}
+          type="checkbox"
+        />{' '}
+        <label>Make visibility public</label>
+        <input
+          onClick={() => setVisibility(VisibilityType.GLOBAL)}
+          disabled={visibility === VisibilityType.PRIVATE}
+          type="checkbox"
+        ></input>
+        <label> Publish to globalFeed</label>
+      </div>
+      <StyledButton
+        onClick={() =>
+          addShortcut({
+            links,
+            name: 'bryans link',
+            visibility: VisibilityType.GLOBAL,
+            post_type: POSTTYPE.DEFAULT,
+          })
+        }
+      />
+    </StyledContainer>
+  ) : (
     <StyledContainer>
       <StyledHeaderText>Add a shortcut</StyledHeaderText>
       <StyledSubheaderText>
@@ -51,10 +83,9 @@ const AddShortcutContainer = ({}) => {
         <StyledLabelText>Links</StyledLabelText>
         <StyledList>
           {links.map((link, index) => (
-            <StyledListItem>
+            <StyledListItem key={link + index}>
               {' '}
               <input
-                key={link + index}
                 onChange={e => (links[index] = e.target.value)}
                 placeholder="ex: google.com"
               ></input>
@@ -69,18 +100,7 @@ const AddShortcutContainer = ({}) => {
           Add link
         </StyledButton>
       </div>
-      <StyledButton
-        onClick={() =>
-          addShortcut({
-            links,
-            name: 'bryans link',
-            visibility: VisibilityType.GLOBAL,
-            post_type: POSTTYPE.DEFAULT,
-          })
-        }
-      >
-        Continue
-      </StyledButton>
+      <StyledButton onClick={() => setLinksAdded(true)}>Continue</StyledButton>
     </StyledContainer>
   );
 };

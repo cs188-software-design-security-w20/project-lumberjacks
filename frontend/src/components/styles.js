@@ -43,7 +43,7 @@ export const StyledButton = styled.button`
 
 export const StyledContainer = styled.div`
   ${textStyle}
-  width: 100%;
+  margin: auto;
   // padding: 40px 20px;
   height: 100%;
   margin: 0 auto;
