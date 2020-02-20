@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import AddShortcutContainer from './components/AddShortcutContainer';
 import ProfileContainer from './components/ProfileContainer';
 import FeedContainer from './components/FeedContainer';
+import ShortlinkRedirectContainer from './components/ShortlinkRedirectContainer';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/addShortcut" component={AddShortcutContainer} />
         <Route path="/profile" component={ProfileContainer} />
         <Route path="/feed" component={FeedContainer} />
+        <Route path="/:shortlink" children={<ShortlinkRedirectContainer />} />
       </Switch>
     </Router>
   );

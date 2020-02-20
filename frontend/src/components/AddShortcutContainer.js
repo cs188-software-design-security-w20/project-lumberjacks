@@ -66,7 +66,7 @@ const AddShortcutContainer = ({}) => {
       <StyledButton
         onClick={() =>
           addShortcut({
-            links,
+            links: links.map(link => link.value),
             name: shortcutName,
             visibility,
             post_type: POSTTYPE.DEFAULT,
