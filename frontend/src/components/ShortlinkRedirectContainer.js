@@ -14,8 +14,7 @@ const ShortlinkRedirectContainer = () => {
       setLinks(links);
       console.log(links);
       links['links'].split(',').forEach((link, index) => {
-        window.open('http://' + link);
-        console.log(link);
+        window.open('http://' + link, '_blank');
       });
     };
     getLinks();
