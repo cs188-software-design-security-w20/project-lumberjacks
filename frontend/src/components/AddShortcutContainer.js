@@ -50,17 +50,24 @@ const AddShortcutContainer = ({}) => {
       <div>
         <StyledLabelText>Links</StyledLabelText>
         <StyledList>
-          <StyledListItem>
-            {links.map((link, index) => (
+          {links.map((link, index) => (
+            <StyledListItem>
+              {' '}
               <input
-                key={link}
-                // value={link}
+                key={link + index}
                 onChange={e => (links[index] = e.target.value)}
                 placeholder="ex: google.com"
               ></input>
-            ))}
-          </StyledListItem>
+            </StyledListItem>
+          ))}
         </StyledList>
+        <StyledButton
+          onClick={() => {
+            setLinks(links.concat(['']));
+          }}
+        >
+          Add link
+        </StyledButton>
       </div>
       <StyledButton
         onClick={() =>
@@ -72,7 +79,7 @@ const AddShortcutContainer = ({}) => {
           })
         }
       >
-        Get link
+        Continue
       </StyledButton>
     </StyledContainer>
   );
