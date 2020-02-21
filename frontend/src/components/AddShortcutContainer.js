@@ -37,20 +37,15 @@ const AddShortcutContainer = ({ forking, filledLinks = [], repostId, repostName 
 				repost_id
 			});
 			callback(res.shortlink);
-			console.log(res);
-		} catch (e) {
-			console.log(e);
-		}
+		} catch (e) {}
 	};
 
 	const handleChange = (index, e) => {
 		links[index].value = e.target.value;
 		setLinks([ ...links ]);
-		console.log(links);
 	};
 
 	const toggleVisibility = () => {
-		console.log(visibility);
 		if (visibility === VisibilityType.PRIVATE) {
 			setVisibility(VisibilityType.PUBLIC);
 		} else {
@@ -184,7 +179,6 @@ const AddShortcutContainer = ({ forking, filledLinks = [], repostId, repostName 
 					<StyledButton
 						onClick={() => {
 							const box = macroBox.ref.current;
-							console.log(box);
 							box.select();
 							document.execCommand('copy');
 						}}
