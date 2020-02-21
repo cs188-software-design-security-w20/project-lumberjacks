@@ -7,19 +7,24 @@ import {
 	StyledLabelText,
 	StyledList,
 	StyledInput,
-	StyledListItem
+	StyledCheckbox,
+	StyledListItem,
+	StyledGrayBox
 } from './styles';
 
+import ShortcutCard from '../components/ShortcutCard';
 import Core from '../api_clients/core';
 import { VisibilityType, POSTTYPE } from '../api_clients/core';
 
 const AddShortcutContainer = ({}) => {
 	const [ links, setLinks ] = React.useState([ { value: null } ]);
 	const [ linksAdded, setLinksAdded ] = React.useState(false);
+	const [ pageState, setPageState ] = React.useState(0);
 	const [ visibility, setVisibility ] = React.useState(VisibilityType.PRIVATE);
 	const [ shortcutName, setShortcutName ] = React.useState(null);
+	const [ macro, setMacro ] = React.useState(null);
 
-	const addShortcut = async ({ links, name, post_type, visibility, repost_id }) => {
+	const addShortcut = async ({ links, name, post_type, visibility, repost_id, callback }) => {
 		try {
 			const res = await Core.addLink({
 				name,
@@ -28,6 +33,7 @@ const AddShortcutContainer = ({}) => {
 				post_type,
 				repost_id
 			});
+			callback(res.shortlink);
 			console.log(res);
 		} catch (e) {
 			console.log(e);
@@ -48,59 +54,103 @@ const AddShortcutContainer = ({}) => {
 		}
 	};
 
-	return linksAdded ? (
-		<StyledContainer>
-			<StyledHeaderText>Review your link and sharing settings</StyledHeaderText>
-			<div>LINKS GO HERE</div>
-			<div>
-				<StyledInput
-					onClick={() => {
-						toggleVisibility();
-					}}
-					type="checkbox"
-					checked={!!visibility}
-				/>{' '}
-				<label>Make public</label>
-			</div>
-			<StyledButton
-				onClick={() =>
-					addShortcut({
-						links: links.map((link) => link.value),
-						name: shortcutName,
-						visibility,
-						post_type: POSTTYPE.DEFAULT
-					})}
-			>
-				Create
-			</StyledButton>
-		</StyledContainer>
-	) : (
-		<StyledContainer>
-			<div style={{ marginBottom: 25 }}>
-				<StyledLabelText>Name</StyledLabelText>
-				<StyledInput placeholder="ex: Michael's link" onChange={(e) => setShortcutName(e.target.value)} />
-			</div>
-			<div style={{ marginBottom: 50 }}>
-				<StyledLabelText>Links</StyledLabelText>
-				<StyledList>
-					{links.map((link, index) => (
-						<StyledListItem key={link + index}>
-							{' '}
-							<StyledInput onChange={(e) => handleChange(index, e)} placeholder="ex: google.com" />
-						</StyledListItem>
-					))}
-				</StyledList>
-				<StyledButton
-					onClick={() => {
-						setLinks([ ...links, { value: null } ]);
-					}}
-				>
-					Add link
-				</StyledButton>
-			</div>
-			<StyledButton onClick={() => setLinksAdded(true)}>Continue</StyledButton>
-		</StyledContainer>
-	);
+	let activeComponent;
+
+	switch (pageState) {
+		case 0:
+			activeComponent = (
+				<StyledContainer>
+					<div style={{ marginBottom: 25 }}>
+						<StyledLabelText>Name</StyledLabelText>
+						<StyledInput
+							placeholder="ex: Michael's link"
+							onChange={(e) => setShortcutName(e.target.value)}
+						/>
+					</div>
+					<div style={{ marginBottom: 50 }}>
+						<StyledLabelText>Links</StyledLabelText>
+						<StyledList>
+							{links.map((link, index) => (
+								<StyledListItem key={link + index}>
+									{' '}
+									<StyledInput
+										onChange={(e) => handleChange(index, e)}
+										placeholder="ex: google.com"
+									/>
+								</StyledListItem>
+							))}
+						</StyledList>
+						<StyledButton
+							onClick={() => {
+								setLinks([ ...links, { value: null } ]);
+							}}
+						>
+							Add link
+						</StyledButton>
+					</div>
+					<StyledButton onClick={() => setPageState(1)}>Continue</StyledButton>
+				</StyledContainer>
+			);
+			break;
+		case 1:
+			activeComponent = (
+				<StyledContainer>
+					<StyledHeaderText>Review your link and sharing settings</StyledHeaderText>
+					<ShortcutCard
+						style={{ marginBottom: 50 }}
+						urls={links.map((link) => link.value)}
+						id="0"
+						shortcutName={shortcutName}
+						macro={null}
+					/>
+					<StyledGrayBox style={{ marginBottom: 10 }}>
+						<div>
+							<StyledCheckbox
+								onClick={() => {
+									toggleVisibility();
+								}}
+								type="checkbox"
+							/>{' '}
+							<label>Make visibility public</label>
+						</div>
+					</StyledGrayBox>
+					<StyledButton
+						onClick={() => {
+							addShortcut({
+								links: links.map((link) => link.value),
+								name: shortcutName,
+								visibility,
+								post_type: POSTTYPE.DEFAULT,
+								callback: (macro) => {
+									setMacro(macro);
+									setPageState(2);
+								}
+							});
+						}}
+					>
+						Continue
+					</StyledButton>
+				</StyledContainer>
+			);
+			break;
+		case 2:
+			activeComponent = (
+				<StyledContainer>
+					<ShortcutCard
+						style={{ marginBottom: 25 }}
+						urls={links.map((link) => link.value)}
+						id="0"
+						shortcutName={shortcutName}
+						macro={null}
+					/>
+					<StyledSubheaderText>Your link has been created:</StyledSubheaderText>
+					<StyledGrayBox>{'http://localhost:3000/' + macro}</StyledGrayBox>
+				</StyledContainer>
+			);
+			break;
+	}
+
+	return activeComponent;
 };
 
 export default AddShortcutContainer;
