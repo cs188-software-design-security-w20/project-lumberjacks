@@ -146,7 +146,7 @@ const AddShortcutContainer = ({}) => {
     case 2:
       const macroBoxRef = React.createRef();
       const macroBox = (
-        <StyledGrayTextArea ref={macroBoxRef}>
+        <StyledGrayTextArea ref={macroBoxRef} style={{ marginBottom: 10 }}>
           {'http://localhost:3000/' + macro}
         </StyledGrayTextArea>
       );
@@ -170,8 +170,16 @@ const AddShortcutContainer = ({}) => {
               box.select();
               document.execCommand('copy');
             }}
+            style={{ marginBottom: 50 }}
           >
             Copy to clipboard
+          </StyledButton>
+          <StyledButton
+            onClick={() => {
+              window.location.href = '/profile';
+            }}
+          >
+            Back to profile
           </StyledButton>
         </StyledContainer>
       );

@@ -1,5 +1,9 @@
 import React from 'react';
-import { StyledButton, StyledContainer } from '../components/styles';
+import {
+  StyledButton,
+  StyledContainer,
+  StyledInput,
+} from '../components/styles';
 import User from '../api_clients/user';
 import Auth from '../api_clients/auth';
 
@@ -16,7 +20,7 @@ class Login extends React.Component {
 
     // handle form submissions
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleStyledInputChange = this.handleStyledInputChange.bind(this);
   }
 
   async handleSubmit(e) {
@@ -34,7 +38,7 @@ class Login extends React.Component {
     }
   }
 
-  handleInputChange(e, key) {
+  handleStyledInputChange(e, key) {
     this.setState({ [key]: e.target.value });
   }
 
@@ -42,34 +46,38 @@ class Login extends React.Component {
     const { login } = this.props;
     return (
       <StyledContainer>
-        {login ? <h1>Log In</h1> : <h1>Sign up</h1>}
+        {login ? (
+          <h1 style={{ marginBottom: 10 }}>Log In</h1>
+        ) : (
+          <h1 style={{ marginBottom: 10 }}>Sign up</h1>
+        )}
         <div>
           {!login && (
             <>
               {' '}
               <label>Email</label>
-              <input
+              <StyledInput
                 type="text"
                 value={this.state.email}
-                onChange={e => this.handleInputChange(e, 'email')}
+                onChange={e => this.handleStyledInputChange(e, 'email')}
               />
             </>
           )}
         </div>
         <div>
           <label>User Name</label>
-          <input
+          <StyledInput
             type="text"
             value={this.state.username}
-            onChange={e => this.handleInputChange(e, 'username')}
+            onChange={e => this.handleStyledInputChange(e, 'username')}
           />
         </div>
         <div style={{ marginBottom: 10 }}>
           <label>Password</label>
-          <input
+          <StyledInput
             type="text"
             value={this.state.password}
-            onChange={e => this.handleInputChange(e, 'password')}
+            onChange={e => this.handleStyledInputChange(e, 'password')}
           />
         </div>
         <StyledButton onClick={this.handleSubmit}>
