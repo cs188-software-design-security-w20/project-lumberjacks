@@ -41,11 +41,13 @@ const App = () => {
   }, []);
 
   const navItemStyle = {
-    color: 'rgba(0,0,0, .9)',
+    color: 'rgba(0,0,0, .8)',
     textDecoration: 'none',
     fontFamily: 'sans-serif',
     fontSize: '1rem',
     cursor: 'pointer',
+    marginRight: '24px',
+    maxWidth: '100%',
   };
 
   document.body.style.backgroundColor = '#f9f9f9';
@@ -57,8 +59,8 @@ const App = () => {
         style={{
           padding: 20,
           width: '100%',
+          boxSizing: 'border-box',
           borderBottom: '.5px lightgray solid',
-          marginBottom: 50,
         }}
       >
         <Nav

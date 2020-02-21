@@ -26,19 +26,17 @@ class ShortcutCard extends React.Component {
       <StyledGalleryItem style={style}>
         {macro != null ? (
           <StyledSubheaderText
-            style={{ fontSize: '1rem', marginBottom: 3, color: 'gray' }}
+            style={{ color: 'rgba(0, 0, 0, 0.6)', marginBottom: '10px' }}
           >
             {macro}
           </StyledSubheaderText>
         ) : null}
-        <StyledHeaderText style={{ marginBottom: 10, fontWeight: 'bold' }}>
+        <StyledHeaderText style={{ fontWeight: 'bold', marginBottom: '10px' }}>
           {shortcutName}
         </StyledHeaderText>
         <StyledList>
           {urls.map((url, index) => (
-            <StyledListItem style={{ color: 'darkgray' }} key={url + index}>
-              {url}
-            </StyledListItem>
+            <StyledListItem key={url + index}>{url}</StyledListItem>
           ))}
         </StyledList>
       </StyledGalleryItem>
