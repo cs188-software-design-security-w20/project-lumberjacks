@@ -10,14 +10,17 @@ import Home from './pages/Home';
 import AddShortcutContainer from './components/AddShortcutContainer';
 import ProfileContainer from './components/ProfileContainer';
 import FeedContainer from './components/FeedContainer';
+import { StyledButton } from './components/styles';
 import ShortlinkRedirectContainer from './components/ShortlinkRedirectContainer';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Button } from 'reactstrap';
+
+import Login from './pages/Login';
 
 import Auth from './api_clients/auth';
 
 const App = () => {
   const history = useHistory();
-  const [isLoggedIn, setLoggedIn] = useState(true);
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
   async function authUser() {
@@ -27,7 +30,7 @@ const App = () => {
       setLoggedIn(true);
       setUser(data.name);
     } else {
-      setLoggedIn(false);
+      console.log('Error logging in: ' + data.error);
     }
   }
 
@@ -118,11 +121,37 @@ const App = () => {
           {isLoggedIn ? (
             <Redirect to="/feed" />
           ) : (
-            <Home authUser={authUser} history={history} />
+            <Login
+              login={true}
+              setUser={setUser}
+              setLoggedIn={setLoggedIn}
+              history={history}
+              children={
+                <StyledButton
+                  onClick={() => (window.location.href = '/signup')}
+                >
+                  Sign up
+                </StyledButton>
+              }
+            />
           )}
         </Route>
         <Route path="/login">
-          <Home authUser={authUser} history={history} />
+          <Login
+            login={true}
+            setUser={setUser}
+            setLoggedIn={setLoggedIn}
+            history={history}
+            children={
+              <StyledButton onClick={() => (window.location.href = '/signup')}>
+                Sign up
+              </StyledButton>
+            }
+          />
+        </Route>
+        <Route path="/signup">
+          {' '}
+          <Login login={false} />
         </Route>
         <Route path="/addShortcut">
           {isLoggedIn ? <AddShortcutContainer /> : <Redirect to="/" />}
