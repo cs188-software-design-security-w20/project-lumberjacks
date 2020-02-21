@@ -17,7 +17,7 @@ import ShortcutCard from '../components/ShortcutCard';
 import Core from '../api_clients/core';
 import { VisibilityType, POSTTYPE } from '../api_clients/core';
 
-const AddShortcutContainer = ({ forking, filledLinks, repostId, repostName }) => {
+const AddShortcutContainer = ({ forking, filledLinks = [], repostId, repostName }) => {
 	const filledValues = filledLinks.map((link) => ({ value: link }));
 
 	const [ links, setLinks ] = React.useState(forking ? filledValues : [ { value: null } ]);
@@ -81,6 +81,7 @@ const AddShortcutContainer = ({ forking, filledLinks, repostId, repostName }) =>
 									<StyledInput
 										onChange={(e) => handleChange(index, e)}
 										placeholder="ex: google.com"
+										value={link.value}
 									/>
 								</StyledListItem>
 							))}
