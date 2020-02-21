@@ -15,10 +15,10 @@ const textStyle = css`
 
 export const StyledGalleryItem = styled.div`
   position: relative;
-  background-color: ${gray};
   border-radius: 4px;
   margin-bottom: 16px;
   padding: 16px;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
 `;
 
 export const StyledButton = styled.button`
@@ -66,7 +66,8 @@ export const StyledHeaderText = styled.h1`
 
 export const StyledSubheaderText = styled.h2`
   ${textStyle}
-  font-size: 14px;
+  margin: 0;
+  font-size: 20px;
 `;
 
 export const StyledLabelText = styled.h3`
@@ -91,7 +92,7 @@ export const StyledListItem = styled.li`
 
 export const StyledInput = styled.input`
   background-color: ${gray};
-  border-radius: 4px;
+  border-radius: 5px;
   border: none;
   outline: none;
   padding: 5px;
@@ -102,4 +103,14 @@ export const StyledInput = styled.input`
   box-sizing: border-box;
   margin-bottom: 10px;
   display: inline-block;
+`;
+
+export const StyledCheckbox = styled.input`
+  display: inline-block;
+`;
+
+export const StyledGrayBox = styled.div`
+  background-color: ${gray};
+  padding: 13px;
+  border-radius: 6px;
 `;
