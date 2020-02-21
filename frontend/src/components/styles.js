@@ -24,29 +24,31 @@ export const StyledGalleryItem = styled.div`
 export const StyledButton = styled.button`
   display: block;
   width: auto;
-  line-height: 40px;
+  line-height: 35px;
   border-radius: 4px;
   border: 0;
   font-size: 16px;
   padding: 0 25px 0 25px;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 600;
   box-sizing: border-box;
-  color: white;
-  background-color: ${black};
+  color: ${black};
+  background-color: white;
+  border: 2px solid ${gray};
   text-align: center;
   &:hover {
     opacity: 0.8;
     cursor: pointer;
   }
+  width: 100%;
 `;
 
+// centered container
 export const StyledContainer = styled.div`
   ${textStyle}
   margin: auto;
-  // padding: 40px 20px;
+  width: 35%;
   height: 100%;
-  margin: 0 auto;
 `;
 
 export const StyledTitleText = styled.h1`
@@ -85,4 +87,19 @@ export const StyledListItem = styled.li`
   ${textStyle}
   display: block;
   font-size: 14px;
+`;
+
+export const StyledInput = styled.input`
+  background-color: ${gray};
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  padding: 5px;
+  width: 100%;
+  box-shadow: none;
+  height: 30px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  display: inline-block;
 `;
