@@ -12,7 +12,6 @@ const ShortlinkRedirectContainer = () => {
     const getLinks = async () => {
       const links = await Core.getLinks({ shortlink });
       setLinks(links);
-      console.log(links);
       links['links'].split(',').forEach((link, index) => {
         window.open('http://' + link, '_blank');
       });

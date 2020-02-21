@@ -1,6 +1,6 @@
 import json
 
-from flask import request, redirect, render_template, Response
+from flask import request, redirect, render_template, Response, jsonify
 from flask_login import login_required
 
 from . import main
@@ -12,9 +12,11 @@ def get_links(shortlink):
     link_id = db_manager.shortlink_to_link_id(shortlink)['id']
     link = db_manager.get_link(link_id)
     permissions = db_manager.check_permissions(link)
+    print(link)
     # fine
-    if permissions == 0:
-        return Response({'links': link['links']}, status=201, mimetype='application/json')
+    if permissions == 0:  
+        # return Response({'links': link['links']}, status=201, mimetype='application/json')
+        return jsonify({'links': link['links']}), 201
 
     # age-restricted
     elif permissions == 1:
@@ -45,7 +47,8 @@ def add_link():
     if 'error' in add_link_response:
         return Response(add_link_response['error'], status=500, mimetype='application/text')
     else:
-        return Response({'message': 'Link Successfully Created.', 'shortlink': add_link_response['shortlink']}, status=201, mimetype='application/json')
+        # return Response({'message': 'Link Successfully Created.', 'shortlink': add_link_response['shortlink']}, status=201, mimetype='application/json')
+        return jsonify({'message': 'Link Successfully Created.', 'shortlink': add_link_response['shortlink']}), 201
 
 
 @main.route('/gallery', methods=['GET'])

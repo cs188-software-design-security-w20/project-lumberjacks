@@ -6,6 +6,7 @@ import {
   StyledButton,
   StyledLabelText,
   StyledList,
+  StyledInput,
   StyledListItem,
 } from './styles';
 
@@ -49,18 +50,18 @@ const AddShortcutContainer = ({}) => {
       <StyledHeaderText>Review your link and sharing settings</StyledHeaderText>
       <div>LINKS GO HERE</div>
       <div>
-        <input
+        <StyledInput
           onClick={() => {
             setVisibility(VisibilityType.PUBLIC);
           }}
           type="checkbox"
         />{' '}
         <label>Make visibility public</label>
-        <input
+        <StyledInput
           onClick={() => setVisibility(VisibilityType.GLOBAL)}
           disabled={visibility === VisibilityType.PRIVATE}
           type="checkbox"
-        ></input>
+        ></StyledInput>
         <label> Publish to globalFeed</label>
       </div>
       <StyledButton
@@ -78,24 +79,23 @@ const AddShortcutContainer = ({}) => {
     </StyledContainer>
   ) : (
     <StyledContainer>
-      <StyledHeaderText>Add a shortcut</StyledHeaderText>
-      <StyledSubheaderText>
-        Input some text below to generate a lumberlink.
-      </StyledSubheaderText>
-      <div>
+      <div style={{ marginBottom: 25 }}>
         <StyledLabelText>Name</StyledLabelText>
-        <input onChange={e => setShortcutName(e.target.value)}></input>
+        <StyledInput
+          placeholder="ex: Michael's link"
+          onChange={e => setShortcutName(e.target.value)}
+        ></StyledInput>
       </div>
-      <div>
+      <div style={{ marginBottom: 50 }}>
         <StyledLabelText>Links</StyledLabelText>
         <StyledList>
           {links.map((link, index) => (
             <StyledListItem key={link + index}>
               {' '}
-              <input
+              <StyledInput
                 onChange={e => handleChange(index, e)}
                 placeholder="ex: google.com"
-              ></input>
+              ></StyledInput>
             </StyledListItem>
           ))}
         </StyledList>
