@@ -179,7 +179,7 @@ const AddShortcutContainer = ({
         <StyledGrayTextArea
           ref={macroBoxRef}
           style={{ marginBottom: 10 }}
-          value={API_BASE + macro}
+          value={'http://localhost:3000/' + macro}
         />
       );
       activeComponent = (
