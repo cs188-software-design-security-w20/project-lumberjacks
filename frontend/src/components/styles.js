@@ -1,24 +1,42 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 
-const black = 'rgba(0, 0,0, 0.8)';
+const black = 'rgba(0, 0, 0, 0.8)';
 const secondaryBlack = 'rgba(0, 0,0, 0.4)';
 const tertiaryBlack = 'rgba(0, 0,0, 0.1)';
-const gray = '#F3F3F3';
+const gray = '#ECECEC';
+const materialWhite = '#FFF';
+const borderBottom = css`
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+`;
 
 const textStyle = css`
-  font-family: sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: normal;
   margin: 0;
   color: ${black};
 `;
 
+const textPrimaryStyle = css`
+  ${textStyle}
+  font-size: 24px;
+  line-height: 29px;
+`;
+
+const textSecondaryStyle = css`
+  ${textStyle}
+  font-size: 18px;
+  line-height: 21px;
+`;
+
 export const StyledGalleryItem = styled.div`
   position: relative;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  padding: 16px;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background-color: ${materialWhite};
+  ${borderBottom}
 `;
 
 export const StyledButton = styled.button`
@@ -60,15 +78,11 @@ export const StyledTitleText = styled.h1`
 
 // Despite the names, these are just used for the shortcuts
 export const StyledHeaderText = styled.h1`
-  ${textStyle}
-  font-size: 25px;
-  margin-bottom: 20px;
+  ${textPrimaryStyle}
 `;
 
 export const StyledSubheaderText = styled.h2`
-  ${textStyle}
-  margin: 0;
-  font-size: 20px;
+  ${textSecondaryStyle}
 `;
 
 export const StyledLabelText = styled.h3`
@@ -86,9 +100,9 @@ export const StyledList = styled.ul`
 `;
 
 export const StyledListItem = styled.li`
-  ${textStyle}
+  ${textSecondaryStyle}
   display: block;
-  font-size: 1rem;
+  line-height: 27px;
 `;
 
 export const StyledInput = styled.input`
@@ -104,6 +118,10 @@ export const StyledInput = styled.input`
   box-sizing: border-box;
   margin-bottom: 10px;
   display: inline-block;
+  &:focus {
+    border: 1px solid ${black};
+    padding: 4px;
+  }
 `;
 
 export const StyledCheckbox = styled.input`

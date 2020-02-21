@@ -72,7 +72,7 @@ const AddShortcutContainer = ({
   switch (pageState) {
     case 0:
       activeComponent = (
-        <StyledContainer>
+        <StyledContainer style={{ paddingTop: '80px' }}>
           {forking && (
             <StyledHeaderText>Forking from {repostName}</StyledHeaderText>
           )}
@@ -111,8 +111,8 @@ const AddShortcutContainer = ({
       break;
     case 1:
       activeComponent = (
-        <StyledContainer>
-          <StyledHeaderText>
+        <StyledContainer style={{ paddingTop: '80px' }}>
+          <StyledHeaderText style={{ marginBottom: '16px' }}>
             Review your link and sharing settings
           </StyledHeaderText>
           <ShortcutCard
@@ -131,7 +131,7 @@ const AddShortcutContainer = ({
                 }}
                 type="checkbox"
               />{' '}
-              <label>Make visibility public</label>
+              <label>Publish to public profile</label>
             </div>
           </StyledGrayBox>
           {forking ? (
@@ -183,7 +183,7 @@ const AddShortcutContainer = ({
         />
       );
       activeComponent = (
-        <StyledContainer>
+        <StyledContainer style={{ paddingTop: '80px' }}>
           <ShortcutCard
             style={{ marginBottom: 25 }}
             urls={links.map(link => link.value)}

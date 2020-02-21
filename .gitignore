@@ -3,4 +3,4 @@ bin
 .DS_Store
 __pycache__
 *.pyc
-data-dev.sqlite
+backend/flaskr/data-dev.sqlite
