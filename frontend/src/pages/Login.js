@@ -3,6 +3,7 @@ import {
   StyledButton,
   StyledContainer,
   StyledInput,
+  StyledSubheaderText,
 } from '../components/styles';
 import User from '../api_clients/user';
 import Auth from '../api_clients/auth';
@@ -27,9 +28,13 @@ class Login extends React.Component {
     const { email, username, password } = this.state;
     // If logging in and not signing up
     if (this.props.login) {
-      await Auth.login({ emailOrUsername: username, password });
-      await this.props.authUser();
-      this.props.history.push('/feed');
+      const data = await Auth.login({ emailOrUsername: username, password });
+      if (!data.error) {
+        // this.props.history.push('/feed');
+        window.location.href = '/';
+      } else {
+        this.setState(prevState => ({ ...prevState, error: data.error }));
+      }
     } else {
       User.createUser({
         email,
@@ -87,6 +92,12 @@ class Login extends React.Component {
         >
           {this.props.login ? 'Login' : 'Sign up'}
         </StyledButton>
+        {this.props.children}
+        <StyledSubheaderText
+          style={{ color: 'red', fontSize: '1rem', marginTop: 10 }}
+        >
+          {this.state.error}
+        </StyledSubheaderText>
       </StyledContainer>
     );
   }

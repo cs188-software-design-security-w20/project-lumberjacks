@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Core from '../api_clients/core';
 
+import { StyledContainer } from '../components/styles';
+
 import ShortcutCard from '../components/ShortcutCard';
 
 const Profile = ({}) => {
@@ -12,7 +14,7 @@ const Profile = ({}) => {
     })();
   }, [Core.getGallery, setLinks]);
   return (
-    <div>
+    <StyledContainer style={{ backgroundColor: 'white' }}>
       {links == null
         ? null
         : links.map(linkObject => (
@@ -30,7 +32,7 @@ const Profile = ({}) => {
               macro={'/' + linkObject.shortlink}
             />
           ))}
-    </div>
+    </StyledContainer>
   );
 };
 

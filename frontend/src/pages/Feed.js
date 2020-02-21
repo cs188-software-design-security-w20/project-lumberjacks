@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ShortcutCard from '../components/ShortcutCard';
 import Core from '../api_clients/core';
 
+import { StyledContainer } from '../components/styles';
+
 const FeedContainer = ({}) => {
   const [links, setLinks] = useState(null);
   useEffect(() => {
