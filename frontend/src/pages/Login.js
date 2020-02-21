@@ -30,17 +30,9 @@ class Login extends React.Component {
 
     // If logging in and not signing up
     if (this.props.login) {
-      const data = await Auth.login({ emailOrUsername: username, password });
-      console.log(data);
-      if (!data['error']) {
-        console.log('Logged in successfully.');
-        this.props.setLoggedIn(true);
-        this.props.setUser(data.name);
-        window.location.href = '/';
-      } else {
-        this.setState(prevState => ({ ...prevState, error: data.error }));
-        console.log('Error logging in: ' + data.error);
-      }
+      await Auth.login({ emailOrUsername: username, password });
+      await this.props.authUser();
+      this.props.history.push('/feed');
     } else {
       User.createUser({
         email,
@@ -88,7 +80,7 @@ class Login extends React.Component {
         <div style={{ marginBottom: 10 }}>
           <label>Password</label>
           <StyledInput
-            type="password"
+            type="text"
             value={this.state.password}
             onChange={e => this.handleStyledInputChange(e, 'password')}
           />
