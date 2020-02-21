@@ -198,7 +198,7 @@ class DatabaseManager():
             return 1
 
         if link['visibility'] == VisibilityType.PUBLIC or \
-                (current_user is not None and current_user.id == link['author_id']):
+                (current_user.get_id() is not None and current_user.id == link['author_id']):
             return 0
 
         return 2
