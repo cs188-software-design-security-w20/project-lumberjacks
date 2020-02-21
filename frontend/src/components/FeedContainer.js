@@ -41,7 +41,6 @@ const FeedContainer = ({}) => {
 	async function fork(id) {
 		try {
 			await getLinkInfo(id);
-			console.log(repostName, repostLinks, repostId);
 			openFork(true);
 		} catch (err) {
 			return;
@@ -52,8 +51,8 @@ const FeedContainer = ({}) => {
 
 	return (
 		<div>
-			<Modal isOpen={forkModal} onRequestClose={() => openFork(false)}>
-				<AddShortcutContainer forking repostId filledLinks={repostLinks} repostName />
+			<Modal isOpen={forkModal} onRequestClose={() => openFork(false)} appElement={this}>
+				<AddShortcutContainer forking repostId={repostId} filledLinks={repostLinks} repostName={repostName} />
 			</Modal>
 			<StyledContainer>
 				<StyledHeaderText>Feed</StyledHeaderText>
@@ -66,6 +65,7 @@ const FeedContainer = ({}) => {
 							shortcutName={link.name}
 							forkable
 							fork={() => fork(link.id)}
+							forkName={link.repost_id !== -1 && 'another user'}
 						/>
 					))}
 				</div>

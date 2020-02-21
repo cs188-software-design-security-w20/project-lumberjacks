@@ -18,7 +18,9 @@ import Core from '../api_clients/core';
 import { VisibilityType, POSTTYPE } from '../api_clients/core';
 
 const AddShortcutContainer = ({ forking, filledLinks, repostId, repostName }) => {
-	const [ links, setLinks ] = React.useState(forking ? filledLinks : [ { value: null } ]);
+	const filledValues = filledLinks.map((link) => ({ value: link }));
+
+	const [ links, setLinks ] = React.useState(forking ? filledValues : [ { value: null } ]);
 	const [ linksAdded, setLinksAdded ] = React.useState(false);
 	const [ pageState, setPageState ] = React.useState(0);
 	const [ visibility, setVisibility ] = React.useState(VisibilityType.PRIVATE);
@@ -44,6 +46,7 @@ const AddShortcutContainer = ({ forking, filledLinks, repostId, repostName }) =>
 	const handleChange = (index, e) => {
 		links[index].value = e.target.value;
 		setLinks([ ...links ]);
+		console.log(links);
 	};
 
 	const toggleVisibility = () => {
@@ -61,7 +64,7 @@ const AddShortcutContainer = ({ forking, filledLinks, repostId, repostName }) =>
 		case 0:
 			activeComponent = (
 				<StyledContainer>
-					<StyledHeaderText>Forking from {repostName}</StyledHeaderText>
+					{forking && <StyledHeaderText>Forking from {repostName}</StyledHeaderText>}
 					<div style={{ marginBottom: 25 }}>
 						<StyledLabelText>Name</StyledLabelText>
 						<StyledInput
