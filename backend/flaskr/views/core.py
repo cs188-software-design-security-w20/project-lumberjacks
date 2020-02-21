@@ -7,14 +7,14 @@ from . import main
 from .. import db_manager
 from ..model import VisibilityType, PostType, SortType
 
+
 @main.route('/<shortlink>', methods=['GET'])
 def get_links(shortlink):
     link_id = db_manager.shortlink_to_link_id(shortlink)['id']
     link = db_manager.get_link(link_id)
     permissions = db_manager.check_permissions(link)
-    print(link)
     # fine
-    if permissions == 0:  
+    if permissions == 0:
         # return Response({'links': link['links']}, status=201, mimetype='application/json')
         return jsonify({'links': link['links']}), 201
 
@@ -57,7 +57,6 @@ def get_private():
     limit = request.args.get('limit', 10)
     offset = request.args.get('offset', 0)
     priv_links = db_manager.get_authored_links(limit, offset)
-    print(priv_links)
     return jsonify(priv_links), 201
 
 
@@ -81,4 +80,3 @@ def upvote_post():
         return Response(upvote_response['error'], status=500, mimetype='application/text')
     else:
         return Response({'message': 'Post upvoted.'}, status=201, mimetype='application/json')
-

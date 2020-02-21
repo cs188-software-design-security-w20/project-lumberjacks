@@ -7,9 +7,9 @@ import {
   useHistory,
 } from 'react-router-dom';
 import Home from './pages/Home';
-import AddShortcutContainer from './components/AddShortcutContainer';
-import ProfileContainer from './components/ProfileContainer';
-import FeedContainer from './components/FeedContainer';
+import AddShortcutContainer from './pages/AddShortcut';
+import ProfileContainer from './pages/Profile';
+import FeedContainer from './pages/Feed';
 import ShortlinkRedirectContainer from './components/ShortlinkRedirectContainer';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Button } from 'reactstrap';
 
@@ -22,7 +22,6 @@ const App = () => {
 
   async function authUser() {
     const data = await Auth.auth();
-    console.log(data);
     if (!data['error']) {
       setLoggedIn(true);
       setUser(data.name);
@@ -37,7 +36,9 @@ const App = () => {
     history.push('/');
   }
 
-  useEffect(async () => await authUser(), []);
+  useEffect(() => {
+    (async () => await authUser())();
+  }, [authUser]);
 
   const navItemStyle = {
     color: 'rgba(0,0,0, .9)',

@@ -1,25 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Core from '../api_clients/core';
-import { StyledContainer } from './styles';
 
 import ShortcutCard from '../components/ShortcutCard';
 
-const ProfileContainer = ({}) => {
+const Profile = ({}) => {
   const [links, setLinks] = React.useState(null);
-  React.useEffect(() => {
-    const getGallery = async () => {
+  useEffect(() => {
+    (async function fetchGallery() {
       const gallery = await Core.getGallery();
       setLinks(gallery);
-      console.log(gallery);
-    };
-    getGallery();
-  }, []);
+    })();
+  }, [Core.getGallery, setLinks]);
   return (
-    <StyledContainer style={{ backgroundColor: '#ffffff' }}>
+    <div>
       {links == null
         ? null
         : links.map(linkObject => (
             <ShortcutCard
+              key={linkObject.id}
               style={{
                 boxShadow: 'none',
                 borderBottom: 'gray .5px solid',
@@ -32,8 +30,8 @@ const ProfileContainer = ({}) => {
               macro={'/' + linkObject.shortlink}
             />
           ))}
-    </StyledContainer>
+    </div>
   );
 };
 
-export default ProfileContainer;
+export default Profile;

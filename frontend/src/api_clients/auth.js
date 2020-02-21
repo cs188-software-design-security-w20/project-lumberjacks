@@ -1,24 +1,24 @@
 import lumberFetch from '../lumberfetch';
 
 class Auth {
-	constructor() {}
+  constructor() {}
 
-	login({ emailOrUsername, password }) {
-		return lumberFetch.post('login', {
-			email: emailOrUsername,
-			username: emailOrUsername,
-			password,
-			remember: true // temporary
-		});
-	}
+  login({ emailOrUsername, password }) {
+    return lumberFetch.post('login', {
+      email: emailOrUsername,
+      username: emailOrUsername,
+      password,
+      remember: true, // temporary
+    });
+  }
 
-	auth() {
-		return lumberFetch.get('auth', {});
-	}
+  auth() {
+    return lumberFetch.get('auth');
+  }
 
-	logout() {
-		return lumberFetch.post('logout', {});
-	}
+  logout() {
+    return lumberFetch.post('logout', {});
+  }
 }
 
 export default new Auth();

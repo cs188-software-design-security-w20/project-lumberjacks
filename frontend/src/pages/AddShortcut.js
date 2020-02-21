@@ -11,7 +11,7 @@ import {
   StyledListItem,
   StyledGrayBox,
   StyledGrayTextArea,
-} from './styles';
+} from '../components/styles';
 
 import ShortcutCard from '../components/ShortcutCard';
 import Core from '../api_clients/core';
@@ -42,10 +42,7 @@ const AddShortcutContainer = ({}) => {
         repost_id,
       });
       callback(res.shortlink);
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   const handleChange = (index, e) => {
@@ -54,7 +51,6 @@ const AddShortcutContainer = ({}) => {
   };
 
   const toggleVisibility = () => {
-    console.log(visibility);
     if (visibility === VisibilityType.PRIVATE) {
       setVisibility(VisibilityType.PUBLIC);
     } else {

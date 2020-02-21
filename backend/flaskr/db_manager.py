@@ -211,5 +211,3 @@ class DatabaseManager():
         target.upvotes += 1
         db.session.add(target)
         db.session.commit()
-
-        
