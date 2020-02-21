@@ -46,7 +46,7 @@ class Login extends React.Component {
   render() {
     const { login } = this.props;
     return (
-      <StyledContainer>
+      <StyledContainer style={{ marginBottom: 50 }}>
         {login ? (
           <h1 style={{ marginBottom: 10 }}>Log In</h1>
         ) : (
@@ -81,7 +81,10 @@ class Login extends React.Component {
             onChange={e => this.handleStyledInputChange(e, 'password')}
           />
         </div>
-        <StyledButton onClick={this.handleSubmit}>
+        <StyledButton
+          style={{ backgroundColor: '#3e3aff', color: 'white' }}
+          onClick={this.handleSubmit}
+        >
           {this.props.login ? 'Login' : 'Sign up'}
         </StyledButton>
       </StyledContainer>

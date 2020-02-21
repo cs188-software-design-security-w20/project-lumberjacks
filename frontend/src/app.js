@@ -56,7 +56,7 @@ const App = () => {
         style={{
           padding: 20,
           width: '100%',
-          borderBottom: '.5px darkgray solid',
+          borderBottom: '.5px lightgray solid',
           marginBottom: 50,
         }}
       >
