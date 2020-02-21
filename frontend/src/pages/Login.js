@@ -3,7 +3,6 @@ import {
   StyledButton,
   StyledContainer,
   StyledInput,
-  StyledSubheaderText,
 } from '../components/styles';
 import User from '../api_clients/user';
 import Auth from '../api_clients/auth';
@@ -17,7 +16,6 @@ class Login extends React.Component {
       username: '',
       password: '',
       email: '',
-      error: null,
     };
 
     // handle form submissions
@@ -27,7 +25,6 @@ class Login extends React.Component {
 
   async handleSubmit(e) {
     const { email, username, password } = this.state;
-
     // If logging in and not signing up
     if (this.props.login) {
       await Auth.login({ emailOrUsername: username, password });
@@ -39,7 +36,6 @@ class Login extends React.Component {
         username,
         password,
       });
-      window.location.href = '/login';
     }
   }
 
@@ -91,14 +87,6 @@ class Login extends React.Component {
         >
           {this.props.login ? 'Login' : 'Sign up'}
         </StyledButton>
-        <div style={{ marginBottom: 2 }}> {this.props.children}</div>
-        {this.state.error ? (
-          <StyledSubheaderText
-            style={{ marginTop: 10, fontSize: '1rem', color: 'red' }}
-          >
-            {this.state.error}
-          </StyledSubheaderText>
-        ) : null}
       </StyledContainer>
     );
   }
