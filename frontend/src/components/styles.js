@@ -49,6 +49,7 @@ export const StyledContainer = styled.div`
   margin: auto;
   width: 35%;
   height: 100%;
+  border-radius: 8px;
 `;
 
 export const StyledTitleText = styled.h1`
@@ -87,7 +88,7 @@ export const StyledList = styled.ul`
 export const StyledListItem = styled.li`
   ${textStyle}
   display: block;
-  font-size: 14px;
+  font-size: 1rem;
 `;
 
 export const StyledInput = styled.input`

@@ -22,20 +22,23 @@ class ShortcutCard extends React.Component {
       shortcutName,
       style,
     } = this.props;
-    if (urls == null || shortcutName == null) {
-      return (
-        <StyledHeaderText>You didn't give me any shortcuts :(</StyledHeaderText>
-      );
-    }
     return (
       <StyledGalleryItem style={style}>
         {macro != null ? (
-          <StyledSubheaderText>{macro}</StyledSubheaderText>
+          <StyledSubheaderText
+            style={{ fontSize: '1rem', marginBottom: 3, color: 'gray' }}
+          >
+            {macro}
+          </StyledSubheaderText>
         ) : null}
-        <StyledHeaderText>{shortcutName}</StyledHeaderText>
+        <StyledHeaderText style={{ marginBottom: 10, fontWeight: 'bold' }}>
+          {shortcutName}
+        </StyledHeaderText>
         <StyledList>
           {urls.map((url, index) => (
-            <StyledListItem key={url + index}>{url}</StyledListItem>
+            <StyledListItem style={{ color: 'darkgray' }} key={url + index}>
+              {url}
+            </StyledListItem>
           ))}
         </StyledList>
       </StyledGalleryItem>
