@@ -13,7 +13,7 @@ const Profile = ({}) => {
     })();
   }, [Core.getGallery, setLinks]);
   return (
-    <div>
+    <StyledContainer style={{ backgroundColor: 'white', marginTop: 80 }}>
       {links == null
         ? null
         : links.map(linkObject => (
@@ -25,7 +25,7 @@ const Profile = ({}) => {
               macro={'/' + linkObject.shortlink}
             />
           ))}
-    </div>
+    </StyledContainer>
   );
 };
 

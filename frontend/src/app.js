@@ -12,18 +12,21 @@ import ProfileContainer from './pages/Profile';
 import FeedContainer from './pages/Feed';
 import ShortlinkRedirectContainer from './components/ShortlinkRedirectContainer';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Button } from 'reactstrap';
+import Login from './pages/Login';
 
 import Auth from './api_clients/auth';
 
 const App = () => {
   const history = useHistory();
   const [isLoggedIn, setLoggedIn] = useState(true);
+  const [loadedAuth, setLoadedAuth] = useState(false);
   const [user, setUser] = useState(null);
 
   async function authUser() {
     const data = await Auth.auth();
     if (!data['error']) {
       setLoggedIn(true);
+      setLoadedAuth(true);
       setUser(data.name);
     } else {
       setLoggedIn(false);
@@ -53,6 +56,8 @@ const App = () => {
   document.body.style.backgroundColor = '#f9f9f9';
   document.body.style.margin = 0;
 
+  console.log('isLoggedIn' + isLoggedIn);
+  console.log('loadedAuth' + loadedAuth);
   return (
     <Router>
       <Navbar
@@ -80,7 +85,7 @@ const App = () => {
               Home
             </NavLink>
           </NavItem>
-          <NavItem>
+          {isLoggedIn && <><NavItem>
             <NavLink style={navItemStyle} href="/addShortcut">
               Add shortcut
             </NavLink>
@@ -89,7 +94,7 @@ const App = () => {
             <NavLink style={navItemStyle} href="/profile">
               Profile
             </NavLink>
-          </NavItem>
+          </NavItem></>}
           <NavItem>
             <NavLink style={navItemStyle} href="/feed">
               Feed
@@ -118,14 +123,20 @@ const App = () => {
 
       <Switch>
         <Route exact path="/">
-          {isLoggedIn ? (
+          {loadedAuth && isLoggedIn ? (
             <Redirect to="/feed" />
+          ) : loadedAuth && !isLoggedIn ? (
+            <Home authUser={authUser} history={history} />
           ) : (
             <Home authUser={authUser} history={history} />
           )}
         </Route>
         <Route path="/login">
           <Home authUser={authUser} history={history} />
+        </Route>
+        <Route path="/signup">
+          {/* <Home authUser={authUser} history={history} /> */}
+          <Login login={false} />
         </Route>
         <Route path="/addShortcut">
           {isLoggedIn ? <AddShortcutContainer /> : <Redirect to="/" />}
@@ -135,7 +146,7 @@ const App = () => {
           {isLoggedIn ? <ProfileContainer /> : <Redirect to="/" />}
         </Route>
         <Route path="/feed">
-          <FeedContainer />
+          <FeedContainer isLoggedIn={isLoggedIn}/>
         </Route>
         <Route path="/:shortlink" children={<ShortlinkRedirectContainer />} />
       </Switch>
