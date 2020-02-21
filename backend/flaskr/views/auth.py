@@ -25,7 +25,7 @@ def login():
         return user_info
 
 
-@main.route('/logout')
+@main.route('/logout', methods=['POST'])
 @login_required
 def logout():
     db_manager.logout()

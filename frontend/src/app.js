@@ -5,12 +5,12 @@ import AddShortcutContainer from './components/AddShortcutContainer';
 import ProfileContainer from './components/ProfileContainer';
 import FeedContainer from './components/FeedContainer';
 import ShortlinkRedirectContainer from './components/ShortlinkRedirectContainer';
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Button } from 'reactstrap';
 
 import Auth from './api_clients/auth';
 
 const App = () => {
-	const [ isLoggedIn, setLoggedIn ] = useState(false);
+	const [ isLoggedIn, setLoggedIn ] = useState(true);
 	const [ tryLogin, setTryLogin ] = useState(true);
 	const [ user, setUser ] = useState(null);
 
@@ -20,10 +20,20 @@ const App = () => {
 		if (!data['error']) {
 			setLoggedIn(true);
 			setUser(data.name);
+		} else {
+			setLoggedIn(false);
 		}
 	}
 
-	useEffect(() => authUser(), []);
+	async function logout() {
+		if (!tryLogin) {
+			return;
+		}
+		await Auth.logout();
+		authUser();
+	}
+
+	useEffect(async () => await authUser(), []);
 
 	return (
 		<Router>
@@ -38,6 +48,9 @@ const App = () => {
 					</NavItem>
 					<NavItem>
 						<NavLink href="/feed">Feed</NavLink>
+					</NavItem>
+					<NavItem>
+						<NavLink onClick={() => logout()}>Sign out</NavLink>
 					</NavItem>
 				</Nav>
 			</Navbar>
