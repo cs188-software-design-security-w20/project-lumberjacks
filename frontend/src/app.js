@@ -38,7 +38,7 @@ const App = () => {
 
   useEffect(() => {
     (async () => await authUser())();
-  }, [authUser]);
+  }, []);
 
   const navItemStyle = {
     color: 'rgba(0,0,0, .9)',

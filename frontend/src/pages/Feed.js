@@ -9,7 +9,7 @@ const FeedContainer = ({}) => {
       const gallery = await Core.getGallery();
       setLinks(gallery);
     })();
-  }, [Core.getGallery, setLinks]);
+  }, []);
   return (
     <div>
       {links == null
