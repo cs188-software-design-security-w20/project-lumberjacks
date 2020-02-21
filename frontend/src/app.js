@@ -49,9 +49,11 @@ const App = () => {
 					<NavItem>
 						<NavLink href="/feed">Feed</NavLink>
 					</NavItem>
-					<NavItem>
-						<NavLink onClick={() => logout()}>Sign out</NavLink>
-					</NavItem>
+					{isLoggedIn && (
+						<NavItem>
+							<NavLink onClick={() => logout()}>Sign out</NavLink>
+						</NavItem>
+					)}
 				</Nav>
 			</Navbar>
 
@@ -61,7 +63,9 @@ const App = () => {
 				</Route>
 				<Route path="/addShortcut">{isLoggedIn ? <AddShortcutContainer /> : <Redirect to="/" />}</Route>
 				<Route path="/profile"> {isLoggedIn ? <ProfileContainer /> : <Redirect to="/" />}</Route>
-				<Route path="/feed"> {isLoggedIn ? <FeedContainer /> : <Redirect to="/" />}</Route>
+				<Route path="/feed">
+					<FeedContainer />
+				</Route>
 				<Route path="/:shortlink" children={<ShortlinkRedirectContainer />} />
 			</Switch>
 		</Router>
