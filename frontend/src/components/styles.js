@@ -25,7 +25,7 @@ export const StyledButton = styled.button`
   display: block;
   width: auto;
   line-height: 35px;
-  border-radius: 4px;
+  border-radius: 5px;
   border: 0;
   font-size: 16px;
   padding: 0 25px 0 25px;
