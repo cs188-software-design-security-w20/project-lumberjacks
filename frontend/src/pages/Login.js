@@ -23,8 +23,8 @@ class Login extends React.Component {
     const { email, username, password } = this.state;
     // If logging in and not signing up
     if (this.props.login) {
-      const a = await Auth.login({ emailOrUsername: username, password });
-      console.log(a);
+      await Auth.login({ emailOrUsername: username, password });
+      this.props.authUser();
     } else {
       User.createUser({
         email,
