@@ -17,8 +17,17 @@ import ShortcutCard from '../components/ShortcutCard';
 import Core from '../api_clients/core';
 import { VisibilityType, POSTTYPE } from '../api_clients/core';
 
-const AddShortcutContainer = ({}) => {
-  const [links, setLinks] = React.useState([{ value: null }]);
+const AddShortcutContainer = ({
+  forking,
+  filledLinks = [],
+  repostId,
+  repostName,
+}) => {
+  const filledValues = filledLinks.map(link => ({ value: link }));
+
+  const [links, setLinks] = React.useState(
+    forking ? filledValues : [{ value: null }],
+  );
   const [linksAdded, setLinksAdded] = React.useState(false);
   const [pageState, setPageState] = React.useState(0);
   const [visibility, setVisibility] = React.useState(VisibilityType.PRIVATE);
@@ -63,7 +72,10 @@ const AddShortcutContainer = ({}) => {
   switch (pageState) {
     case 0:
       activeComponent = (
-        <StyledContainer>
+        <StyledContainer style={{ paddingTop: '80px' }}>
+          {forking && (
+            <StyledHeaderText>Forking from {repostName}</StyledHeaderText>
+          )}
           <div style={{ marginBottom: 25 }}>
             <StyledLabelText>Name</StyledLabelText>
             <StyledInput
@@ -80,6 +92,7 @@ const AddShortcutContainer = ({}) => {
                   <StyledInput
                     onChange={e => handleChange(index, e)}
                     placeholder="ex: google.com"
+                    value={link.value}
                   />
                 </StyledListItem>
               ))}
@@ -92,19 +105,14 @@ const AddShortcutContainer = ({}) => {
               Add link
             </StyledButton>
           </div>
-          <StyledButton
-            style={{ backgroundColor: '#3e3aff', color: 'white' }}
-            onClick={() => setPageState(1)}
-          >
-            Continue
-          </StyledButton>
+          <StyledButton onClick={() => setPageState(1)}>Continue</StyledButton>
         </StyledContainer>
       );
       break;
     case 1:
       activeComponent = (
-        <StyledContainer>
-          <StyledHeaderText>
+        <StyledContainer style={{ paddingTop: '80px' }}>
+          <StyledHeaderText style={{ marginBottom: '16px' }}>
             Review your link and sharing settings
           </StyledHeaderText>
           <ShortcutCard
@@ -113,6 +121,7 @@ const AddShortcutContainer = ({}) => {
             id="0"
             shortcutName={shortcutName}
             macro={null}
+            forkName={repostName}
           />
           <StyledGrayBox style={{ marginBottom: 10 }}>
             <div>
@@ -122,26 +131,45 @@ const AddShortcutContainer = ({}) => {
                 }}
                 type="checkbox"
               />{' '}
-              <label>Make visibility public</label>
+              <label>Publish to public profile</label>
             </div>
           </StyledGrayBox>
-          <StyledButton
-            style={{ backgroundColor: '#3e3aff', color: 'white' }}
-            onClick={() => {
-              addShortcut({
-                links: links.map(link => link.value),
-                name: shortcutName,
-                visibility,
-                post_type: POSTTYPE.DEFAULT,
-                callback: macro => {
-                  setMacro(macro);
-                  setPageState(2);
-                },
-              });
-            }}
-          >
-            Continue
-          </StyledButton>
+          {forking ? (
+            <StyledButton
+              onClick={() => {
+                addShortcut({
+                  links: links.map(link => link.value),
+                  name: shortcutName,
+                  visibility,
+                  repost_id: repostId,
+                  post_type: POSTTYPE.DEFAULT,
+                  callback: macro => {
+                    setMacro(macro);
+                    setPageState(2);
+                  },
+                });
+              }}
+            >
+              Fork
+            </StyledButton>
+          ) : (
+            <StyledButton
+              onClick={() => {
+                addShortcut({
+                  links: links.map(link => link.value),
+                  name: shortcutName,
+                  visibility,
+                  post_type: POSTTYPE.DEFAULT,
+                  callback: macro => {
+                    setMacro(macro);
+                    setPageState(2);
+                  },
+                });
+              }}
+            >
+              Create
+            </StyledButton>
+          )}
         </StyledContainer>
       );
       break;
@@ -152,16 +180,17 @@ const AddShortcutContainer = ({}) => {
           ref={macroBoxRef}
           style={{ marginBottom: 10 }}
           value={'http://localhost:3000/' + macro}
-        ></StyledGrayTextArea>
+        />
       );
       activeComponent = (
-        <StyledContainer>
+        <StyledContainer style={{ paddingTop: '80px' }}>
           <ShortcutCard
             style={{ marginBottom: 25 }}
             urls={links.map(link => link.value)}
             id="0"
             shortcutName={shortcutName}
             macro={null}
+            forkName={repostName}
           />
           <StyledSubheaderText style={{ marginBottom: 17 }}>
             Your link has been created:
@@ -170,15 +199,10 @@ const AddShortcutContainer = ({}) => {
           <StyledButton
             onClick={() => {
               const box = macroBox.ref.current;
-              console.log(box);
               box.select();
               document.execCommand('copy');
             }}
-            style={{
-              marginBottom: 50,
-              backgroundColor: '#3e3aff',
-              color: 'white',
-            }}
+            style={{ marginBottom: 50 }}
           >
             Copy to clipboard
           </StyledButton>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  StyledButton,
   StyledGalleryItem,
   StyledSubheaderText,
   StyledHeaderText,
@@ -21,26 +22,39 @@ class ShortcutCard extends React.Component {
       userName,
       shortcutName,
       style,
+      forkable,
+      fork,
+      forkName,
     } = this.props;
     return (
       <StyledGalleryItem style={style}>
         {macro != null ? (
           <StyledSubheaderText
-            style={{ fontSize: '1rem', marginBottom: 3, color: 'gray' }}
+            style={{ color: 'rgba(0, 0, 0, 0.6)', marginBottom: '10px' }}
           >
             {macro}
           </StyledSubheaderText>
         ) : null}
+        {forkName && (
+          <StyledSubheaderText
+            style={{ fontSize: '1rem', marginBottom: 3, color: 'gray' }}
+          >
+            forked from {forkName}
+          </StyledSubheaderText>
+        )}
         <StyledHeaderText style={{ marginBottom: 10, fontWeight: 'bold' }}>
           {shortcutName}
         </StyledHeaderText>
         <StyledList>
           {urls.map((url, index) => (
-            <StyledListItem style={{ color: 'darkgray' }} key={url + index}>
-              {url}
-            </StyledListItem>
+            <StyledListItem key={url + index}>{url}</StyledListItem>
           ))}
         </StyledList>
+        {forkable && (
+          <StyledButton style={{ marginTop: '16px' }} onClick={fork}>
+            Fork
+          </StyledButton>
+        )}
       </StyledGalleryItem>
     );
   }

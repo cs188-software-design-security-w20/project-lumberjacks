@@ -4,6 +4,7 @@ import Core from '../api_clients/core';
 import { StyledContainer } from '../components/styles';
 
 import ShortcutCard from '../components/ShortcutCard';
+import { StyledContainer, StyledHeaderText } from '../components/styles';
 
 const Profile = ({}) => {
   const [links, setLinks] = React.useState(null);
@@ -20,12 +21,6 @@ const Profile = ({}) => {
         : links.map(linkObject => (
             <ShortcutCard
               key={linkObject.id}
-              style={{
-                boxShadow: 'none',
-                borderBottom: 'gray .5px solid',
-                borderBottomLeftRadius: 0,
-                borderBottomRightRadius: 0,
-              }}
               urls={linkObject.links.split(',')}
               id={linkObject.id}
               shortcutName={linkObject.name}

@@ -64,6 +64,7 @@ class Login extends React.Component {
               {' '}
               <label>Email</label>
               <StyledInput
+                style={{ marginTop: '4px' }} //TODO: Remove
                 type="text"
                 value={this.state.email}
                 onChange={e => this.handleStyledInputChange(e, 'email')}
@@ -74,6 +75,7 @@ class Login extends React.Component {
         <div>
           <label>User Name</label>
           <StyledInput
+            style={{ marginTop: '4px' }} //TODO: Remove
             type="text"
             value={this.state.username}
             onChange={e => this.handleStyledInputChange(e, 'username')}
