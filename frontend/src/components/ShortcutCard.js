@@ -22,6 +22,11 @@ class ShortcutCard extends React.Component {
       shortcutName,
       style,
     } = this.props;
+    if (urls == null || shortcutName == null) {
+      return (
+        <StyledHeaderText>You didn't give me any shortcuts :(</StyledHeaderText>
+      );
+    }
     return (
       <StyledGalleryItem style={style}>
         {macro != null ? (

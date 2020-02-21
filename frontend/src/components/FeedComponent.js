@@ -14,9 +14,7 @@ class GalleryList extends React.Component {
     return (
       <div>
         <StyledTitleText>Feed</StyledTitleText>
-        <div>
-          <ShortcutCard id="0" shortcutName="Bryan's link" macro="H532AL3M3" />
-        </div>
+        <div></div>
       </div>
     );
   }
