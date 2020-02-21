@@ -26,6 +26,13 @@ def get_links(shortlink):
         return Response('This link is private. If it is yours, you need to log in.', status=401, mimetype='application/text')
 
 
+@main.route('/get_link', methods=['POST'])
+@login_required
+def get_link():
+    payload = request.get_json(force=True)
+    return jsonify(db_manager.get_link(payload['id'])), 201
+
+
 @main.route('/add_link', methods=['POST'])
 @login_required
 def add_link():
