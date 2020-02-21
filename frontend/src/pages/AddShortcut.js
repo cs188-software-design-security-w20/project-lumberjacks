@@ -105,7 +105,12 @@ const AddShortcutContainer = ({
               Add link
             </StyledButton>
           </div>
-          <StyledButton onClick={() => setPageState(1)}>Continue</StyledButton>
+          <StyledButton
+            style={{ backgroundColor: '#3e3aff', color: 'white' }}
+            onClick={() => setPageState(1)}
+          >
+            Continue
+          </StyledButton>
         </StyledContainer>
       );
       break;
@@ -166,6 +171,7 @@ const AddShortcutContainer = ({
                   },
                 });
               }}
+              style={{ backgroundColor: '#3e3aff', color: 'white' }}
             >
               Create
             </StyledButton>
@@ -202,7 +208,11 @@ const AddShortcutContainer = ({
               box.select();
               document.execCommand('copy');
             }}
-            style={{ marginBottom: 50 }}
+            style={{
+              marginBottom: 50,
+              backgroundColor: '#3e3aff',
+              color: 'white',
+            }}
           >
             Copy to clipboard
           </StyledButton>
