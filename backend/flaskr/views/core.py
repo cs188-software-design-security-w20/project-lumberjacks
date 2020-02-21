@@ -57,7 +57,8 @@ def get_private():
     limit = request.args.get('limit', 10)
     offset = request.args.get('offset', 0)
     priv_links = db_manager.get_authored_links(limit, offset)
-    return Response(priv_links, status=201, mimetype='application/json')
+    print(priv_links)
+    return jsonify(priv_links), 201
 
 
 @main.route('/feed', methods=['GET'])
@@ -66,7 +67,7 @@ def get_public():
     offset = request.args.get('offset', 0)
     sort_by = request.args.get('sort', SortType.CHRONO)
     pub_links = db_manager.get_public_links(limit, offset, sort_by)
-    return Response(pub_links, status=201, mimetype='application/json')
+    return jsonify(pub_links), 201
 
 
 @main.route('/upvote', methods=['POST'])
