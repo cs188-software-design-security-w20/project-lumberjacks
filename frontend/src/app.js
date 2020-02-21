@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Redirect, Route, BrowserRouter as Router, Switch, useHistory } from 'react-router-dom';
 import Home from './pages/Home';
 import AddShortcutContainer from './components/AddShortcutContainer';
 import ProfileContainer from './components/ProfileContainer';
@@ -10,8 +10,8 @@ import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Button } from 'reactstrap';
 import Auth from './api_clients/auth';
 
 const App = () => {
+	const history = useHistory();
 	const [ isLoggedIn, setLoggedIn ] = useState(true);
-	const [ tryLogin, setTryLogin ] = useState(true);
 	const [ user, setUser ] = useState(null);
 
 	async function authUser() {
@@ -26,11 +26,9 @@ const App = () => {
 	}
 
 	async function logout() {
-		if (!tryLogin) {
-			return;
-		}
 		await Auth.logout();
-		authUser();
+		await authUser();
+		history.push('/');
 	}
 
 	useEffect(async () => await authUser(), []);
@@ -49,6 +47,11 @@ const App = () => {
 					<NavItem>
 						<NavLink href="/feed">Feed</NavLink>
 					</NavItem>
+					{!isLoggedIn && (
+						<NavItem>
+							<NavLink href="/login">Sign in</NavLink>
+						</NavItem>
+					)}
 					{isLoggedIn && (
 						<NavItem>
 							<NavLink onClick={() => logout()}>Sign out</NavLink>
@@ -59,7 +62,10 @@ const App = () => {
 
 			<Switch>
 				<Route exact path="/">
-					{isLoggedIn ? <Redirect to="/feed" /> : <Home authUser={authUser} />}
+					{isLoggedIn ? <Redirect to="/feed" /> : <Home authUser={authUser} history={history} />}
+				</Route>
+				<Route path="/login">
+					<Home authUser={authUser} history={history} />
 				</Route>
 				<Route path="/addShortcut">{isLoggedIn ? <AddShortcutContainer /> : <Redirect to="/" />}</Route>
 				<Route path="/profile"> {isLoggedIn ? <ProfileContainer /> : <Redirect to="/" />}</Route>
