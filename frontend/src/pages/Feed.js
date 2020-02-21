@@ -62,8 +62,7 @@ const FeedContainer = ({}) => {
           repostName={repostName}
         />
       </Modal>
-      <StyledContainer>
-        <StyledHeaderText>Feed</StyledHeaderText>
+      <StyledContainer style={{ paddingTop: '80px' }}>
         <div>
           {links.map(link => (
             <ShortcutCard

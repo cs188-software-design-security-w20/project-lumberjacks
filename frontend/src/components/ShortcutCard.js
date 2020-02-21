@@ -50,7 +50,11 @@ class ShortcutCard extends React.Component {
             <StyledListItem key={url + index}>{url}</StyledListItem>
           ))}
         </StyledList>
-        {forkable && <StyledButton onClick={fork}>Fork</StyledButton>}
+        {forkable && (
+          <StyledButton style={{ marginTop: '16px' }} onClick={fork}>
+            Fork
+          </StyledButton>
+        )}
       </StyledGalleryItem>
     );
   }
