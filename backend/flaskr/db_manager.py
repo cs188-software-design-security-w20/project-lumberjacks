@@ -209,7 +209,7 @@ class DatabaseManager():
         '''
         target = Link.query.get(post_id)
         target.upvotes += 1
-        db_session.add(target)
-        db_session.commit()
+        db.session.add(target)
+        db.session.commit()
 
         

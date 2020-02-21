@@ -18,10 +18,10 @@ def get_links(shortlink):
 
     # age-restricted
     elif permissions == 1:
-        return Response('This content has been age-restricted', status=500, mimetype='application/text')
+        return Response('This content has been age-restricted', status=402, mimetype='application/text')
     # private / not logged in
     elif permissions == 2:
-        return Response('This link is private. If it is yours, you need to log in.', status=500, mimetype='application/text')
+        return Response('This link is private. If it is yours, you need to log in.', status=401, mimetype='application/text')
 
 
 @main.route('/add_link', methods=['POST'])
