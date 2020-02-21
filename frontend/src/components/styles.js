@@ -113,4 +113,20 @@ export const StyledGrayBox = styled.div`
   background-color: ${gray};
   padding: 13px;
   border-radius: 6px;
+  font-size: 20px;
+`;
+
+export const StyledGrayTextArea = styled.textarea`
+  background-color: ${gray};
+  padding: 13px;
+  border-radius: 6px;
+  font-size: 20px;
+  resize: none;
+  border: none;
+  width: 100%;
+  outline: none;
+  text-align: center;
+  box-sizing: border-box;
+  height: 65px;
+  padding: 20px;
 `;

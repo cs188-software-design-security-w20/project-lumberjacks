@@ -10,6 +10,7 @@ import {
   StyledCheckbox,
   StyledListItem,
   StyledGrayBox,
+  StyledGrayTextArea,
 } from './styles';
 
 import ShortcutCard from '../components/ShortcutCard';
@@ -143,6 +144,12 @@ const AddShortcutContainer = ({}) => {
       );
       break;
     case 2:
+      const macroBoxRef = React.createRef();
+      const macroBox = (
+        <StyledGrayTextArea ref={macroBoxRef}>
+          {'http://localhost:3000/' + macro}
+        </StyledGrayTextArea>
+      );
       activeComponent = (
         <StyledContainer>
           <ShortcutCard
@@ -152,8 +159,20 @@ const AddShortcutContainer = ({}) => {
             shortcutName={shortcutName}
             macro={null}
           />
-          <StyledSubheaderText>Your link has been created:</StyledSubheaderText>
-          <StyledGrayBox>{'http://localhost:3000/' + macro}</StyledGrayBox>
+          <StyledSubheaderText style={{ marginBottom: 17 }}>
+            Your link has been created:
+          </StyledSubheaderText>
+          {macroBox}
+          <StyledButton
+            onClick={() => {
+              const box = macroBox.ref.current;
+              console.log(box);
+              box.select();
+              document.execCommand('copy');
+            }}
+          >
+            Copy to clipboard
+          </StyledButton>
         </StyledContainer>
       );
       break;
