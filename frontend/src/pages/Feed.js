@@ -7,6 +7,8 @@ import { StyledContainer, StyledHeaderText } from '../components/styles';
 import Core from '../api_clients/core';
 import Modal from 'react-modal';
 
+import { StyledContainer } from '../components/styles';
+
 const FeedContainer = ({}) => {
   // Fetch feed, pass to component
   const [links, setLinks] = useState([]);
