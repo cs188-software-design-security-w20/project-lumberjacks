@@ -146,7 +146,7 @@ const App = () => {
           {isLoggedIn ? <ProfileContainer /> : <Redirect to="/" />}
         </Route>
         <Route path="/feed">
-          <FeedContainer />
+          <FeedContainer isLoggedIn={isLoggedIn}/>
         </Route>
         <Route path="/:shortlink" children={<ShortlinkRedirectContainer />} />
       </Switch>

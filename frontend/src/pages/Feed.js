@@ -7,7 +7,7 @@ import { StyledContainer, StyledHeaderText } from '../components/styles';
 import Core from '../api_clients/core';
 import Modal from 'react-modal';
 
-const FeedContainer = ({}) => {
+const FeedContainer = ({ isLoggedIn }) => {
 	// Fetch feed, pass to component
 	const [ links, setLinks ] = useState([]);
 	const [ offset, setOffset ] = useState(0);
@@ -61,7 +61,7 @@ const FeedContainer = ({}) => {
 							macro={link.shortlink}
 							urls={link.links.split(',')}
 							shortcutName={link.name}
-							forkable
+							forkable={isLoggedIn}
 							fork={() => fork(link.id)}
 							forkName={link.repost_id !== -1 && 'another user'}
 						/>
