@@ -18,7 +18,7 @@ import Auth from './api_clients/auth';
 
 const App = () => {
   const history = useHistory();
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
   const [loadedAuth, setLoadedAuth] = useState(false);
   const [user, setUser] = useState(null);
 
@@ -144,11 +144,7 @@ const App = () => {
           {isLoggedIn ? <ProfileContainer /> : <Redirect to="/" />}
         </Route>
         <Route path="/feed">
-          {loadedAuth && isLoggedIn ? (
-            <Redirect to="/login" />
-          ) : (
-            <FeedContainer />
-          )}
+          <FeedContainer />
         </Route>
         <Route path="/:shortlink" children={<ShortlinkRedirectContainer />} />
       </Switch>

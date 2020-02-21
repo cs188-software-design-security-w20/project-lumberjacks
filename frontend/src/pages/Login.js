@@ -41,6 +41,7 @@ class Login extends React.Component {
         username,
         password,
       });
+      window.location.href = '/';
     }
   }
 
@@ -81,7 +82,7 @@ class Login extends React.Component {
         <div style={{ marginBottom: 10 }}>
           <label>Password</label>
           <StyledInput
-            type="text"
+            type="password"
             value={this.state.password}
             onChange={e => this.handleStyledInputChange(e, 'password')}
           />
