@@ -53,6 +53,15 @@ const AddShortcutContainer = ({}) => {
     setLinks([...links]);
   };
 
+  const toggleVisibility = () => {
+    console.log(visibility);
+    if (visibility === VisibilityType.PRIVATE) {
+      setVisibility(VisibilityType.PUBLIC);
+    } else {
+      setVisibility(VisibilityType.PRIVATE);
+    }
+  };
+
   let activeComponent;
 
   switch (pageState) {
@@ -64,7 +73,7 @@ const AddShortcutContainer = ({}) => {
             <StyledInput
               placeholder="ex: Michael's link"
               onChange={e => setShortcutName(e.target.value)}
-            ></StyledInput>
+            />
           </div>
           <div style={{ marginBottom: 50 }}>
             <StyledLabelText>Links</StyledLabelText>
@@ -75,7 +84,7 @@ const AddShortcutContainer = ({}) => {
                   <StyledInput
                     onChange={e => handleChange(index, e)}
                     placeholder="ex: google.com"
-                  ></StyledInput>
+                  />
                 </StyledListItem>
               ))}
             </StyledList>
@@ -108,20 +117,11 @@ const AddShortcutContainer = ({}) => {
             <div>
               <StyledCheckbox
                 onClick={() => {
-                  setVisibility(VisibilityType.PUBLIC);
+                  toggleVisibility();
                 }}
                 type="checkbox"
               />{' '}
               <label>Make visibility public</label>
-            </div>
-            <div style={{ paddingLeft: 30 }}>
-              {' '}
-              <StyledCheckbox
-                onClick={() => setVisibility(VisibilityType.GLOBAL)}
-                disabled={visibility === VisibilityType.PRIVATE}
-                type="checkbox"
-              />
-              <label> Publish to globalFeed</label>
             </div>
           </StyledGrayBox>
           <StyledButton
@@ -146,9 +146,11 @@ const AddShortcutContainer = ({}) => {
     case 2:
       const macroBoxRef = React.createRef();
       const macroBox = (
-        <StyledGrayTextArea ref={macroBoxRef} style={{ marginBottom: 10 }}>
-          {'http://localhost:3000/' + macro}
-        </StyledGrayTextArea>
+        <StyledGrayTextArea
+          ref={macroBoxRef}
+          style={{ marginBottom: 10 }}
+          value={'http://localhost:3000/' + macro}
+        ></StyledGrayTextArea>
       );
       activeComponent = (
         <StyledContainer>

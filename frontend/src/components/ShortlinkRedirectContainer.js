@@ -15,13 +15,11 @@ const ShortlinkRedirectContainer = () => {
 			const getLinks = async () => {
 				try {
 					const links = await Core.getLinks({ shortlink });
-					console.log(links);
 					setLinks(links);
 					links['links'].split(',').forEach((link, index) => {
 						window.open('http://' + link, '_blank');
 					});
 				} catch (err) {
-					console.log(err);
 					setPermissions(false);
 					setErr(err['errorResponse']);
 				}
