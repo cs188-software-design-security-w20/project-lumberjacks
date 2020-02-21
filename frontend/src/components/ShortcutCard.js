@@ -30,7 +30,7 @@ class ShortcutCard extends React.Component {
       <StyledGalleryItem style={style}>
         {macro != null ? (
           <StyledSubheaderText
-            style={{ fontSize: '1rem', marginBottom: 3, color: 'gray' }}
+            style={{ color: 'rgba(0, 0, 0, 0.6)', marginBottom: '10px' }}
           >
             {macro}
           </StyledSubheaderText>
@@ -47,9 +47,7 @@ class ShortcutCard extends React.Component {
         </StyledHeaderText>
         <StyledList>
           {urls.map((url, index) => (
-            <StyledListItem style={{ color: 'darkgray' }} key={url + index}>
-              {url}
-            </StyledListItem>
+            <StyledListItem key={url + index}>{url}</StyledListItem>
           ))}
         </StyledList>
         {forkable && <StyledButton onClick={fork}>Fork</StyledButton>}
