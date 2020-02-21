@@ -29,7 +29,7 @@ class Login extends React.Component {
     if (this.props.login) {
       await Auth.login({ emailOrUsername: username, password });
       await this.props.authUser();
-      this.props.history.push('/feed');
+      window.location.href = '/feed';
     } else {
       User.createUser({
         email,
@@ -76,7 +76,7 @@ class Login extends React.Component {
         <div style={{ marginBottom: 10 }}>
           <label>Password</label>
           <StyledInput
-            type="text"
+            type="password"
             value={this.state.password}
             onChange={e => this.handleStyledInputChange(e, 'password')}
           />
