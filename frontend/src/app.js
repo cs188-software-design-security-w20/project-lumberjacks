@@ -85,7 +85,7 @@ const App = () => {
               Home
             </NavLink>
           </NavItem>
-          <NavItem>
+          {isLoggedIn && <><NavItem>
             <NavLink style={navItemStyle} href="/addShortcut">
               Add shortcut
             </NavLink>
@@ -94,7 +94,7 @@ const App = () => {
             <NavLink style={navItemStyle} href="/profile">
               Profile
             </NavLink>
-          </NavItem>
+          </NavItem></>}
           <NavItem>
             <NavLink style={navItemStyle} href="/feed">
               Feed
