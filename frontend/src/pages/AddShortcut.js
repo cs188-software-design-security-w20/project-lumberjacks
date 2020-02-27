@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyledContainer,
   StyledHeaderText,
@@ -16,6 +16,7 @@ import {
 import ShortcutCard from '../components/ShortcutCard';
 import Core from '../api_clients/core';
 import { VisibilityType, POSTTYPE } from '../api_clients/core';
+import ErrorString from '../components/ErrorString';
 
 const AddShortcutContainer = ({
   forking,
@@ -33,6 +34,7 @@ const AddShortcutContainer = ({
   const [visibility, setVisibility] = React.useState(VisibilityType.PRIVATE);
   const [shortcutName, setShortcutName] = React.useState(null);
   const [macro, setMacro] = React.useState(null);
+  const [error, setError] = useState(null);
 
   const addShortcut = async ({
     links,
@@ -51,7 +53,13 @@ const AddShortcutContainer = ({
         repost_id,
       });
       callback(res.shortlink);
-    } catch (e) {}
+    } catch (e) {
+      if (Object.keys(e).includes('errorResponse')) {
+        setError(e.errorResponse);
+      } else {
+        setError('Unknown Error');
+      }
+    }
   };
 
   const handleChange = (index, e) => {
@@ -228,7 +236,12 @@ const AddShortcutContainer = ({
       break;
   }
 
-  return activeComponent;
+  return (
+    <div>
+      {activeComponent}
+      <ErrorString>{error}</ErrorString>
+    </div>
+  );
 };
 
 export default AddShortcutContainer;

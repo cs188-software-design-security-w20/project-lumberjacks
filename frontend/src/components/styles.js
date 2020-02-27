@@ -76,6 +76,15 @@ export const StyledTitleText = styled.h1`
   margin-bottom: 20px;
 `;
 
+export const Error = styled.p`
+  ${textStyle}
+  font-size: 20px;
+  display: block;
+  text-align: center;
+  color: red;
+  margin: 8px;
+`;
+
 // Despite the names, these are just used for the shortcuts
 export const StyledHeaderText = styled.h1`
   ${textPrimaryStyle}
