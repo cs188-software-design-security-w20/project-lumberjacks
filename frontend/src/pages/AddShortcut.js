@@ -17,6 +17,7 @@ import ShortcutCard from '../components/ShortcutCard';
 import Core from '../api_clients/core';
 import { VisibilityType, POSTTYPE } from '../api_clients/core';
 import ErrorString from '../components/ErrorString';
+import { customSetError } from './utils';
 
 const AddShortcutContainer = ({
   forking,
@@ -53,12 +54,9 @@ const AddShortcutContainer = ({
         repost_id,
       });
       callback(res.shortlink);
-    } catch (e) {
-      if (Object.keys(e).includes('errorResponse')) {
-        setError(e.errorResponse);
-      } else {
-        setError('Unknown Error');
-      }
+      setError(null);
+    } catch (err) {
+      customSetError(err, setError);
     }
   };
 
@@ -239,7 +237,7 @@ const AddShortcutContainer = ({
   return (
     <div>
       {activeComponent}
-      <ErrorString>{error}</ErrorString>
+      {error && <ErrorString>{error}</ErrorString>}
     </div>
   );
 };

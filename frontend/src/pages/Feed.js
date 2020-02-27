@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import ShortcutCard from '../components/ShortcutCard';
+import ErrorString from '../components/ErrorString';
 import AddShortcutContainer from './AddShortcut';
 
 import { StyledContainer, StyledHeaderText } from '../components/styles';
 
 import Core from '../api_clients/core';
 import Modal from 'react-modal';
+import { customSetError } from './utils';
 
 const FeedContainer = ({ isLoggedIn }) => {
   // Fetch feed, pass to component
@@ -15,13 +17,15 @@ const FeedContainer = ({ isLoggedIn }) => {
   const [repostName, setRepostName] = useState('');
   const [repostLinks, setRepostLinks] = useState([]);
   const [repostId, setRepostId] = useState(-1);
+  const [error, setError] = useState(null);
 
   async function getLinks() {
     try {
       const data = await Core.getFeed(offset, 10, 0);
       setLinks(data);
+      setError(null);
     } catch (err) {
-      return;
+      customSetError(err, setError);
     }
   }
 
@@ -31,8 +35,9 @@ const FeedContainer = ({ isLoggedIn }) => {
       setRepostId(id);
       setRepostLinks(data['links'].split(','));
       setRepostName(data['name']);
+      setError(null);
     } catch (err) {
-      return;
+      customSetError(err, setError);
     }
   }
 
@@ -40,8 +45,9 @@ const FeedContainer = ({ isLoggedIn }) => {
     try {
       await getLinkInfo(id);
       openFork(true);
+      setError(null);
     } catch (err) {
-      return;
+      customSetError(err, setError);
     }
   }
 
@@ -75,6 +81,7 @@ const FeedContainer = ({ isLoggedIn }) => {
             />
           ))}
         </div>
+        {error && <ErrorString>{error}</ErrorString>}
       </StyledContainer>
     </div>
   );
