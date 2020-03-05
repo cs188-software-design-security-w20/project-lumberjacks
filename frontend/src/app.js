@@ -56,8 +56,6 @@ const App = () => {
   document.body.style.backgroundColor = '#f9f9f9';
   document.body.style.margin = 0;
 
-  console.log('isLoggedIn' + isLoggedIn);
-  console.log('loadedAuth' + loadedAuth);
   return (
     <Router>
       <Navbar
@@ -85,16 +83,20 @@ const App = () => {
               Home
             </NavLink>
           </NavItem>
-          {isLoggedIn && <><NavItem>
-            <NavLink style={navItemStyle} href="/addShortcut">
-              Add shortcut
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink style={navItemStyle} href="/profile">
-              Profile
-            </NavLink>
-          </NavItem></>}
+          {isLoggedIn && (
+            <>
+              <NavItem>
+                <NavLink style={navItemStyle} href="/addShortcut">
+                  Add shortcut
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink style={navItemStyle} href="/profile">
+                  Profile
+                </NavLink>
+              </NavItem>
+            </>
+          )}
           <NavItem>
             <NavLink style={navItemStyle} href="/feed">
               Feed
@@ -146,7 +148,7 @@ const App = () => {
           {isLoggedIn ? <ProfileContainer /> : <Redirect to="/" />}
         </Route>
         <Route path="/feed">
-          <FeedContainer isLoggedIn={isLoggedIn}/>
+          <FeedContainer isLoggedIn={isLoggedIn} />
         </Route>
         <Route path="/:shortlink" children={<ShortlinkRedirectContainer />} />
       </Switch>

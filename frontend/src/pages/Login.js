@@ -84,6 +84,7 @@ class Login extends React.Component {
         <div style={{ marginBottom: 10 }}>
           <label>Password</label>
           <StyledInput
+            style={{ marginTop: '4px' }} //TODO: Remove
             type="password"
             value={this.state.password}
             onChange={e => this.handleStyledInputChange(e, 'password')}

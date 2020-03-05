@@ -75,7 +75,7 @@ class FetchWithHandling {
         }
       })
       .catch(exception => {
-        if (DEBUG) throw exception;
+        if (DEBUG) console.log(exception);
         // catch JSE
 
         // give details on what the error was so it doesn't have to be deciphered up the call stack
@@ -85,6 +85,8 @@ class FetchWithHandling {
           errorType = 'NETWORK FAILURE';
         } else if (fetchStatusCode === 200) {
           errorType = 'PARSE RESPONSE FAILURE';
+        } else if (fetchStatusCode === 400) {
+          errorType = 'Bad Request';
         } else {
           // generic error
           errorType = 'Internal Fetch Service Error';

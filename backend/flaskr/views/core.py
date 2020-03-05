@@ -7,6 +7,8 @@ from . import main
 from .. import db_manager
 from ..model import VisibilityType, PostType, SortType
 
+URL = 'localhost:3000'
+
 
 @main.route('/<shortlink>', methods=['GET'])
 def get_links(shortlink):
@@ -41,6 +43,9 @@ def add_link():
 
     if not all(param in payload for param in parameters):
         return Response('Name or Links is missing.', status=400, mimetype='applicaton/text')
+
+    if URL in payload['links']:
+        return Response('Cannot nest Short Links.', status=400, mimetype='application/text')
 
     db_payload = {
         'name': payload['name'],

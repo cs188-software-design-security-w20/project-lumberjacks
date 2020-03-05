@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyledContainer,
   StyledHeaderText,
@@ -16,6 +16,8 @@ import {
 import ShortcutCard from '../components/ShortcutCard';
 import Core from '../api_clients/core';
 import { VisibilityType, POSTTYPE } from '../api_clients/core';
+import ErrorString from '../components/ErrorString';
+import { customSetError } from './utils';
 
 const AddShortcutContainer = ({
   forking,
@@ -33,6 +35,7 @@ const AddShortcutContainer = ({
   const [visibility, setVisibility] = React.useState(VisibilityType.PRIVATE);
   const [shortcutName, setShortcutName] = React.useState(null);
   const [macro, setMacro] = React.useState(null);
+  const [error, setError] = useState(null);
 
   const addShortcut = async ({
     links,
@@ -51,7 +54,10 @@ const AddShortcutContainer = ({
         repost_id,
       });
       callback(res.shortlink);
-    } catch (e) {}
+      setError(null);
+    } catch (err) {
+      customSetError(err, setError);
+    }
   };
 
   const handleChange = (index, e) => {
@@ -105,7 +111,12 @@ const AddShortcutContainer = ({
               Add link
             </StyledButton>
           </div>
-          <StyledButton onClick={() => setPageState(1)}>Continue</StyledButton>
+          <StyledButton
+            style={{ backgroundColor: '#3e3aff', color: 'white' }}
+            onClick={() => setPageState(1)}
+          >
+            Continue
+          </StyledButton>
         </StyledContainer>
       );
       break;
@@ -166,6 +177,7 @@ const AddShortcutContainer = ({
                   },
                 });
               }}
+              style={{ backgroundColor: '#3e3aff', color: 'white' }}
             >
               Create
             </StyledButton>
@@ -202,7 +214,11 @@ const AddShortcutContainer = ({
               box.select();
               document.execCommand('copy');
             }}
-            style={{ marginBottom: 50 }}
+            style={{
+              marginBottom: 50,
+              backgroundColor: '#3e3aff',
+              color: 'white',
+            }}
           >
             Copy to clipboard
           </StyledButton>
@@ -218,7 +234,12 @@ const AddShortcutContainer = ({
       break;
   }
 
-  return activeComponent;
+  return (
+    <div>
+      {activeComponent}
+      {error && <ErrorString>{error}</ErrorString>}
+    </div>
+  );
 };
 
 export default AddShortcutContainer;
