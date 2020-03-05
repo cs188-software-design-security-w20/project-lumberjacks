@@ -5,7 +5,7 @@ from flaskr.model import User
 from flask_script import Manager, Shell, Server
 from flask_migrate import Migrate, MigrateCommand
 
-app = create_app(os.getenv('FLASK_CONFIG') or None)
+app = create_app(os.getenv('FLASK_CONFIG') or 'dev')
 manager = Manager(app)
 migrate = Migrate(app, db)
 def make_shell_context():
