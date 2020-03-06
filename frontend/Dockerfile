@@ -10,9 +10,3 @@ COPY . .
 RUN yarn build
 
 CMD ["node", "server.js"]
-
-# prod env
-# FROM nginx:alpine
-# COPY ./nginx/default.conf /etc/nginx/conf.default
-# COPY --from=builder /app/bin /usr/share/nginx/html
-# CMD ["nginx", "-g", "daemon off;"]
