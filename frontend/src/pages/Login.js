@@ -10,6 +10,29 @@ import Auth from '../api_clients/auth';
 
 // need to add logic to validate credentials & log in if valid; reject if invalid (inside handleSubmit)
 
+const containsSpecialChar = str =>
+  /[\s~`!@#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?()\._]/g.test(str);
+const containsNumber = str => /\d/.test(str);
+const validatePassword = str => {
+  if (str.length < 8) {
+    return {
+      error: 'Password must be 8 characters or longer',
+    };
+  } else if (!containsSpecialChar(str)) {
+    return {
+      error: 'Password must contain a special character',
+    };
+  } else if (!containsNumber(str)) {
+    return {
+      error: 'Password must contain a number',
+    };
+  } else {
+    return {
+      success: 'Good pw dawg',
+    };
+  }
+};
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -36,12 +59,20 @@ class Login extends React.Component {
         this.setState(prevState => ({ ...prevState, error: data.error }));
       }
     } else {
-      User.createUser({
-        email,
-        username,
-        password,
-      });
-      window.location.href = '/';
+      const validation = validatePassword(password);
+      if (validation.error) {
+        this.setState(prevState => ({
+          ...prevState,
+          error: validation.error,
+        }));
+      } else {
+        User.createUser({
+          email,
+          username,
+          password,
+        });
+        window.location.href = '/';
+      }
     }
   }
 
