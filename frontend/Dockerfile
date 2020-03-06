@@ -1,13 +1,13 @@
-FROM node:alpine as builder
+FROM node:10.13.0 as builder
 WORKDIR /app
 COPY package.json .
 COPY yarn.lock .
 
-RUN npm install -g yarn
+RUN npm install --force -g yarn
 RUN yarn
 
 COPY . .
-RUN yarn run build
+RUN yarn build
 
 CMD ["node", "server.js"]
 
