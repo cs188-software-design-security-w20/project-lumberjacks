@@ -47,8 +47,6 @@ class FetchWithHandling {
 
     let fetchResponse, fetchStatusCode, errorResponse;
 
-    console.log(options);
-
     return fetch(url, options)
       .then(response => {
         fetchResponse = response;
